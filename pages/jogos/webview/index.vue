@@ -83,9 +83,33 @@ export default {
     if (option.title) this.title = option.title;
   },
   methods: {
+    // leftClick() {
+    //   // uni.navigateBack();
+    //   this.$tab.switchTab(`/pages/jogos/index`);
+    // },
     leftClick() {
-      // uni.navigateBack();
-      this.$tab.switchTab(`/pages/jogos/index`);
+      const pages = getCurrentPages();
+      const returnId = this.$route?.query?.returnId || '';
+      const tableId = this.$route?.query?.tableId || '';
+
+      const currentDomain = window.location.origin;
+      const externalUrl = `${currentDomain}/#/?isApp=1&triggeredGameId=${returnId}&tableId=${tableId}`;
+
+      if (pages.length > 1) {
+        // uni.navigateBack();
+        if (typeof plus !== 'undefined' && plus.runtime && plus.runtime.openURL) {
+          plus.runtime.openURL(externalUrl);
+        } else {
+          window.location.href = externalUrl;
+        }
+      } else {
+        if (typeof plus !== 'undefined' && plus.runtime && plus.runtime.openURL) {
+          plus.runtime.openURL(externalUrl);
+        } else {
+          window.location.href = externalUrl;
+        }
+      }
+
     },
     onLoadStart() {
       console.log("开始加载");

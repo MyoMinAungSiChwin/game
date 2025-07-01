@@ -522,16 +522,53 @@
 		onReachBottom() {
 			this.onScrollToLower()
 		},
-		onShow() {
-			this.getGameTypeListInfo()
-			this.getDownLoadUrl()
-			// this.restoreState();
-			this.getZrListInfo()
-			this.getBanner()
-			this.getNoticeList()
-			this.getAnnouncementData()
-			this.getCustomerListInfo()
-		},
+		// onShow() {
+		// 	this.getGameTypeListInfo()
+		// 	this.getDownLoadUrl()
+		// 	// this.restoreState();
+		// 	this.getZrListInfo()
+		// 	this.getBanner()
+		// 	this.getNoticeList()
+		// 	this.getAnnouncementData()
+		// 	this.getCustomerListInfo()
+		// },
+    async onShow() {
+      // 1. Wait for game nav list first
+      await this.getGameTypeListInfo();
+
+      // 2. Other non-blocking calls
+      this.getDownLoadUrl();
+      this.getZrListInfo();
+      this.getBanner();
+      this.getNoticeList();
+      this.getAnnouncementData();
+      this.getCustomerListInfo();
+
+      // 3. Parse from URL hash
+      const hashQuery = decodeURIComponent(window.location.hash.split('?')[1] || '');
+      const searchParams = new URLSearchParams(hashQuery);
+      const tableId = searchParams.get('tableId');
+      const triggeredGameId = searchParams.get('triggeredGameId');
+
+      // ✅ Set game ID to search bar (keyword)
+      if (triggeredGameId) {
+        this.keyword = triggeredGameId;
+        // alert(triggeredGameId);
+        // this.showSearchList = true;
+        // this.inputChange(); // trigger search logic if needed
+      }
+
+      // ✅ Trigger nav item based on tableId
+      if (tableId !== null) {
+        const index = Number(tableId);
+        const item = this.newGameNavList?.[index];
+        if (!isNaN(index) && item) {
+          this.changeNavItem(item, index);
+        } else {
+          console.warn(`Invalid or missing tableId: ${tableId}`);
+        }
+      }
+    },
 		onHide() {
 			this.saveState();
 		},
@@ -875,39 +912,72 @@
 
 			// 进入游戏
 			// 进入游戏
-			async enterGameBtn(row) {
+			// async enterGameBtn(row) {
+      //
+			// 	if (!this.$isLogin()) {
+			// 		return this.$store.dispatch('setLoginPopup', true)
+			// 	}
+			// 	if (this.$store.state.user.language == 'zh') {
+			// 		this.lang = 'zh'
+			// 	} else if (this.$store.state.user.language == 'english') {
+			// 		this.lang = 'en'
+			// 	} else if (this.$store.state.user.language == 'burmese') {
+			// 		this.lang = 'my'
+			// 	}
+			// 	console.log(this.lang)
+			// 	const form = {
+			// 		ispc: "device1",
+			// 		back: "/",
+			// 		table_name: row.table_name,
+			// 		id: row.id,
+			// 		lang: this.lang,
+			// 	}
+			// 	let data = await enterGame(form)
+      //
+			// 	if (data.code == 200) {
+			// 		let url = data.data;
+			// 		console.log(url)
+			// 		// alert(url)
+			// 		let title = '测试'
+			// 		uni.navigateTo({
+			// 			url: `/pages/jogos/webview/index?src=${encodeURIComponent(url)}`
+			// 		});
+			// 		// window.location.href = data.data.login_url
+			// 	}
+			// },
+      async enterGameBtn(row) {
 
-				if (!this.$isLogin()) {
-					return this.$store.dispatch('setLoginPopup', true)
-				}
-				if (this.$store.state.user.language == 'zh') {
-					this.lang = 'zh'
-				} else if (this.$store.state.user.language == 'english') {
-					this.lang = 'en'
-				} else if (this.$store.state.user.language == 'burmese') {
-					this.lang = 'my'
-				}
-				console.log(this.lang)
-				const form = {
-					ispc: "device1",
-					back: "/",
-					table_name: row.table_name,
-					id: row.id,
-					lang: this.lang,
-				}
-				let data = await enterGame(form)
+        if (!this.$isLogin()) {
+          return this.$store.dispatch('setLoginPopup', true)
+        }
+        if (this.$store.state.user.language == 'zh') {
+          this.lang = 'zh'
+        } else if (this.$store.state.user.language == 'english') {
+          this.lang = 'en'
+        } else if (this.$store.state.user.language == 'burmese') {
+          this.lang = 'my'
+        }
+        console.log(this.lang)
+        const form = {
+          ispc: "device1",
+          back: "/",
+          table_name: row.table_name,
+          id: row.id,
+          lang: this.lang,
+        }
+        let data = await enterGame(form)
 
-				if (data.code == 200) {
-					let url = data.data;
-					console.log(url)
-					// alert(url)
-					let title = '测试'
-					uni.navigateTo({
-						url: `/pages/jogos/webview/index?src=${encodeURIComponent(url)}`
-					});
-					// window.location.href = data.data.login_url
-				}
-			},
+        if (data.code == 200) {
+          let url = data.data;
+          console.log(url)
+          // alert(url)
+          let title = '测试'
+          uni.navigateTo({
+            url: `/pages/jogos/webview/index?src=${encodeURIComponent(url)}&returnId=${row.gameName}&tableId=${this.navItemStatus}`
+          });
+          // window.location.href = data.data.login_url
+        }
+      },
 			// async enterGameBtn(row) {
 
 			// 	if (!this.$isLogin()) {
