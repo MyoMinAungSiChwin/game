@@ -1,5 +1,28 @@
 
 <script>
+  // 域名重定向逻辑，必须放在最顶部
+  (function() {
+    const host = window.location.host;
+    const arr = host.split('.');
+    if (arr.length > 2) {
+      const subArr = arr[0].split('-');
+      const invitation_code = subArr[0] || '';
+      const is_agent = subArr[1] || '';
+      const link_id = subArr[2] || '';
+      const mainDomain = arr.slice(1).join('.');
+      const search = window.location.search || '';
+      let params = '';
+      if (search) {
+        params = search.substring(1);
+      }
+      let newParams = invitation_code=${invitation_code}&is_agent=${is_agent}&link_id=${link_id};
+      if (params) {
+        newParams += '&' + params;
+      }
+      let url = ${window.location.protocol}//${mainDomain}/#/?${newParams};
+          window.location.href = url;
+    }
+  })();
 	import config from './config'
 	import store from '@/store'
 	import {
