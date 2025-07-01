@@ -1,0 +1,490 @@
+{
+	"pages": [
+		
+		{
+			"path": "pages/jogos/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"navigationStyle": "custom"
+			}
+		},
+
+		{
+			"path": "pages/framebox",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+
+
+		{
+			"path": "pages/convidar/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/events/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"navigationStyle": "custom"
+			}
+
+		},
+		{
+			"path": "pages/vip/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"navigationStyle": "custom"
+			}
+
+		},
+		{
+			"path": "pages/mine/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"navigationStyle": "custom"
+			}
+		}
+
+		, {
+			"path": "pages/mine/orders/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/mine/settings/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/mine/account/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/jogos/notice/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/jogos/about-us/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/mine/privacy/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/events/details",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/mine/savings-account/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/first-storage/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},
+		{
+			"path": "pages/return-cash/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/conversion/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/telegram/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/buddy/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/jogos/game-details/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/jogos/webview/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/jogos/game-intro/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/bind/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/mine/backwater/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},
+		{
+			"path": "pages/download/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},
+		{
+			"path": "pages/footer-details/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},
+		{
+			"path": "pages/voucher-center/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/voucher-center/affiliateCode",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/voucher-center/vouReport",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/withdraw/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/withdraw/addBankCard",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/withdraw/addXnCard",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/withdraw/editXnCard",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/withdraw/editBankCard",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/withdraw/editBankCardPix",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/withdraw/myWithdrawCards",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/withdraw/addBankCardPix",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/team/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/bonus/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/bonus/details/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/coupon/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/message/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},
+		{
+			"path": "pages/article/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/userinfo/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				 "navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/userinfo/tzjl",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},{
+			"path": "pages/agent/team/overview",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},{
+			"path": "pages/agent/team/yk",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},
+		{
+			"path": "pages/agent/team/userInfo",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},{
+			"path": "pages/agent/team/kh",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},{
+			"path": "pages/agent/team/mysr",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},{
+			"path": "pages/splash/splash",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},{
+			"path": "pages/agent/team/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},  {
+			"path": "pages/orders/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/web-view/index",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}
+	],
+	"tabBar": {
+		"color": "#666",
+		"selectedColor": "#999",
+		"backgroundColor": "black",
+		"list": [{
+				"pagePath": "pages/jogos/index",
+				"iconPath": "static/images/tabbar/jogos.png",
+				"selectedIconPath": "static/images/tabbar/curr_jogos.png",
+				"text": "Jogos"
+			},
+			{
+				"pagePath": "pages/convidar/index",
+				"iconPath": "static/images/tabbar/convidar.png",
+				"selectedIconPath": "static/images/tabbar/curr_convidar.png",
+				"text": "Share"
+			},
+			{
+				"pagePath": "pages/events/index",
+				"iconPath": "static/images/tabbar/convidar.png",
+				"selectedIconPath": "static/images/tabbar/curr_convidar.png",
+				"text": "Depósito"
+			},
+			{
+				"pagePath": "pages/bonus/index",
+				"iconPath": "static/images/tabbar/vip.png",
+				"selectedIconPath": "static/images/tabbar/curr_vip.png",
+				"text": "Bônus"
+			},
+			{
+				"pagePath": "pages/download/index",
+				"iconPath": "static/images/tabbar/mine.png",
+				"selectedIconPath": "static/images/tabbar/curr_mine.png",
+				"text": "App"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "BlackDiamond",
+		"navigationBarBackgroundColor": "#FFFFFF"
+	}
+}

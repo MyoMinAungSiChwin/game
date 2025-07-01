@@ -1,0 +1,13 @@
+{
+  "name": "game-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "",
+  "author": "game-app",
+  "license": "MIT",
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "qrcodejs2": "^0.0.2",
+    "vue-i18n": "^9.2.2"
+  }
+}
