@@ -61,7 +61,7 @@ Vue.prototype.$setTemporizador = setInterval(() => {
 
 
 
-}, 3000)
+}, 5000)
 
 App.mpType = 'app'
 

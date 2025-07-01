@@ -507,9 +507,9 @@
 						}
 						this.userLogin(this.loginForm)
 					} else {
-							this.$set(this.loginForm, 'invitation_code', this.getUrlParam('invitation_code'))
-							this.$set(this.loginForm, 'is_agent', this.getUrlParam('is_agent'))
-							this.$set(this.loginForm, 'link_id', this.getUrlParam('link_id'))
+							this.$set(this.loginForm, 'invitation_code', uni.getStorageSync('invitation_code'))
+							this.$set(this.loginForm, 'is_agent', uni.getStorageSync('is_agent'))
+							this.$set(this.loginForm, 'link_id', uni.getStorageSync('link_id'))
 						let {
 							data,
 							code

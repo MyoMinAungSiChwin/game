@@ -522,57 +522,72 @@
 		onReachBottom() {
 			this.onScrollToLower()
 		},
-		// onShow() {
-		// 	this.getGameTypeListInfo()
-		// 	this.getDownLoadUrl()
-		// 	// this.restoreState();
-		// 	this.getZrListInfo()
-		// 	this.getBanner()
-		// 	this.getNoticeList()
-		// 	this.getAnnouncementData()
-		// 	this.getCustomerListInfo()
-		// },
-    async onShow() {
-      // 1. Wait for game nav list first
-      await this.getGameTypeListInfo();
+			// onShow() {
+			// 	this.getGameTypeListInfo()
+			// 	this.getDownLoadUrl()
+			// 	// this.restoreState();
+			// 	this.getZrListInfo()
+			// 	this.getBanner()
+			// 	this.getNoticeList()
+			// 	this.getAnnouncementData()
+			// 	this.getCustomerListInfo()
+			// },
+		async onShow() {
+		  // 1. Wait for game nav list first
+		  await this.getGameTypeListInfo();
 
-      // 2. Other non-blocking calls
-      this.getDownLoadUrl();
-      this.getZrListInfo();
-      this.getBanner();
-      this.getNoticeList();
-      this.getAnnouncementData();
-      this.getCustomerListInfo();
+		  // 2. Other non-blocking calls
+		  this.getDownLoadUrl();
+		  this.getZrListInfo();
+		  this.getBanner();
+		  this.getNoticeList();
+		  this.getAnnouncementData();
+		  this.getCustomerListInfo();
 
-      // 3. Parse from URL hash
-      const hashQuery = decodeURIComponent(window.location.hash.split('?')[1] || '');
-      const searchParams = new URLSearchParams(hashQuery);
-      const tableId = searchParams.get('tableId');
-      const triggeredGameId = searchParams.get('triggeredGameId');
+		  // 3. Parse from URL hash
+		  const hashQuery = decodeURIComponent(window.location.hash.split('?')[1] || '');
+		  const searchParams = new URLSearchParams(hashQuery);
+		  const tableId = searchParams.get('tableId');
+		  const triggeredGameId = searchParams.get('triggeredGameId');
 
-      // ✅ Set game ID to search bar (keyword)
-      if (triggeredGameId) {
-        this.keyword = triggeredGameId;
-        // alert(triggeredGameId);
-        // this.showSearchList = true;
-        // this.inputChange(); // trigger search logic if needed
-      }
+		  // ✅ Set game ID to search bar (keyword)
+		  if (triggeredGameId) {
+			this.keyword = triggeredGameId;
+			// alert(triggeredGameId);
+			// this.showSearchList = true;
+			// this.inputChange(); // trigger search logic if needed
+		  }
 
-      // ✅ Trigger nav item based on tableId
-      if (tableId !== null) {
-        const index = Number(tableId);
-        const item = this.newGameNavList?.[index];
-        if (!isNaN(index) && item) {
-          this.changeNavItem(item, index);
-        } else {
-          console.warn(`Invalid or missing tableId: ${tableId}`);
-        }
-      }
-    },
+		  // ✅ Trigger nav item based on tableId
+		  if (tableId !== null) {
+			const index = Number(tableId);
+			const item = this.newGameNavList?.[index];
+			if (!isNaN(index) && item) {
+			  this.changeNavItem(item, index);
+			} else {
+			  console.warn(`Invalid or missing tableId: ${tableId}`);
+			}
+		  }
+		  
+		},
+		onLoad() {
+			uni.setStorageSync('invitation_code',this.getUrlParam('invitation_code'));
+			uni.setStorageSync('is_agent',this.getUrlParam('is_agent'));
+			uni.setStorageSync('link_id',this.getUrlParam('link_id'));
+		},
 		onHide() {
 			this.saveState();
 		},
 		methods: {
+			getUrlParam(param) {
+			  console.log("---------------------------")
+			  const options = uni.getLaunchOptionsSync();
+			  console.log(options)
+			  if (options.query && options.query[param]) {
+				return options.query[param];
+			  }
+			  return null;
+			},
 			async getDownLoadUrl() {
 				let {
 					data,

@@ -170,7 +170,7 @@
 							<view> {{$t('kh.text36')}}</view>
 						</view>
 						<view style="margin-top:40rpx; color: #5d8df7;">
-							<span style="padding-right: 4px;">https://blackdiamond1.tv</span>
+							<span style="padding-right: 4px;">{{oneFindArr.reg_link}}</span>
 						</view>
 					</view>
 					<view style="margin-top:40rpx;"><u-button @tap="copyUrl(oneFindArr.reg_link)" type="primary"
@@ -385,8 +385,25 @@
 				});
 			},
 			erweima(item) {
-				this.oneFindArr = item
-				this.showPic = true
+				// 深拷贝，避免污染原始数据
+				this.oneFindArr = JSON.parse(JSON.stringify(item));
+				this.showPic = false; // 先关闭弹窗
+				this.$nextTick(() => {
+					const tempDiv = document.createElement('div');
+					document.body.appendChild(tempDiv);
+					const qrcode = new QRCode(tempDiv, {
+						text: this.oneFindArr.reg_link,
+						width: 256,
+						height: 256,
+						colorDark: '#000000',
+						colorLight: '#ffffff',
+						correctLevel: QRCode.CorrectLevel.H
+					});
+					const canvas = tempDiv.querySelector('canvas');
+					this.oneFindArr.qrcodeData = canvas.toDataURL('image/png');
+					document.body.removeChild(tempDiv);
+					this.showPic = true; // 生成完再打开弹窗
+				});
 			},
 			delLink(item) {
 				let _this = this
