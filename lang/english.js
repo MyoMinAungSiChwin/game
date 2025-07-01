@@ -188,7 +188,7 @@ export default {
 		text62: 'The maximum amount of a single deposit',
 		text63: 'exchange rate',
 		text64: 'Confirm',
-	
+
 	},
 	kh: {
 		text1: 'Account',
@@ -348,7 +348,7 @@ export default {
 		text17: 'The password was entered incorrectly twice',
 		text18: 'The mobile phone number cannot be empty',
 		text19: 'Please enter 11 digits for your mobile phone number',
-	    text20:"Usernames can't contain Chinese characters",
+		text20:"Usernames can't contain Chinese characters",
 		text21: 'Change Password',
 		text22: 'Real name cannot contain Chinese characters',
 		text23: 'Enter your current password',
@@ -369,10 +369,10 @@ export default {
 		text38:'Login password must be at least 6 characters long',
 		text39:'The two fund passwords are inconsistent',
 		text40:'The length of the fund password should be at least 6 characters',
-			text41:'Please change at least one password',
-			text42:'Password changed successfully',
-			text43:'Modified successfully, logging out ..',
-			text44:'Password modification failed'
+		text41:'Please change at least one password',
+		text42:'Password changed successfully',
+		text43:'Modified successfully, logging out ..',
+		text44:'Password modification failed'
 	},
 	account: {
 		text1: 'Deposit',
@@ -478,8 +478,8 @@ export default {
 		text18: 'Overview',
 		text19: 'Tanagement',
 		text20: 'TeamSize',
-		text21: 'Logintotal',
-		text22: 'RegTotal',
+		text21: 'Logins',
+		text22: 'Registers',
 		text23: 'BetTotal',
 		text24: 'DividendTotal',
 		text25: 'RegInitialCharge',
@@ -541,8 +541,12 @@ export default {
 		text81: 'Remember password',
 		text82:'loss',
 		text83:'The total wins',
-		text84:'Kind reminder: The above data statistics were conducted in GMT+8'
-
+		text84: 'Deposits',
+		text85: 'Withdrawals',
+		text86: 'Register first deposits',
+		text87: 'First deposits',
+		text88: 'Bet Count',
+		text89: 'Promotions',
 	},
 	coupon: {
 		text1: 'Exchange',
