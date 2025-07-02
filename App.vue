@@ -1,28 +1,26 @@
 
 <script>
 	// 域名重定向逻辑，必须放在最顶部
-	// 域名重定向逻辑，必须放在最顶部
 	(function() {
-	const host = window.location.host;
-	const arr = host.split('.');
-	if (arr.length > 2) {
-		const subArr = arr[0].split('-');
-		const invitation_code = subArr[0] || '';
-		const is_agent = subArr[1] || '';
-		const link_id = subArr[2] || '';
+	  const host = window.location.host;
+	  const arr = host.split('.');
+	  const subdomain = arr[0];
+
+	  // 数据化的排除列表
+	  const skipSubdomains = ['www', 'ceshi'];
+
+	  // 只有子域名不在排除列表且域名段数大于 2 时才重定向
+	  if (arr.length > 2 && !skipSubdomains.includes(subdomain)) {
+		const [invitation_code = '', is_agent = '', link_id = ''] = subdomain.split('-');
 		const mainDomain = arr.slice(1).join('.');
 		const search = window.location.search || '';
-		let params = '';
-		if (search) {
-			params = search.substring(1);
-		}
-		let newParams = `invitation_code=${invitation_code}&is_agent=${is_agent}&link_id=${link_id}`;
-		if (params) {
-			newParams += '&' + params;
-		}
-		let url = `${window.location.protocol}//${mainDomain}/#/?${newParams}`;
+		const extra = search ? '&' + search.substring(1) : '';
+
+		const newParams = `invitation_code=${invitation_code}&is_agent=${is_agent}&link_id=${link_id}${extra}`;
+		const url = `${window.location.protocol}//${mainDomain}/#/?${newParams}`;
+
 		window.location.href = url;
-	}
+	  }
 	})();
 	
 	import config from './config'
