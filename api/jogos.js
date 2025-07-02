@@ -509,3 +509,12 @@ export function updateUserDesc(data) {
       data
   })
 }
+
+
+export function upgradeUserAccount(data) {
+  return request({
+    url: 'user/upgradeUserAccount',
+    method: 'POST',
+      data
+  })
+}

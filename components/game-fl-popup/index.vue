@@ -35,16 +35,16 @@
 							@tap="allBtn"
 						></u-button>
 				</view>
-				
+
 				<view class="d_fl_four">
 					<view class="rows game_flex d_border12 align_center"
 					v-for="item in menuList"
 					:key="item.url"
-					@tap="toPath(item)"
-					>
+                @tap="onMenuItemClick(item)"
+          >
 						<u-icon :name="item.url" size="26"></u-icon>
 						<text>{{item.name}}</text>
-					</view> 
+					</view>
 				</view>
 			</view>
 		</u-popup>
@@ -86,6 +86,11 @@
 					name: this.$t('jogos.text12'),
 					path: '/pages/vip/index'
 				},
+        {
+          url: require('@/static/images/grzx/new/exit.png'),
+          name: this.$t('userinfo.text50'),
+          type: 12
+        },
 				// {
 				// 	url: require('@/static/images/jogos/tg.png'),
 				// 	name: this.$t('jogos.text13'),
@@ -97,6 +102,23 @@
 			};
 		},
 		methods: {
+      onMenuItemClick(item) {
+        if (item.type === 12) {
+          // Logout logic
+          this.$store.dispatch('LogOut')
+          this.$store.dispatch('setUserPopup', false)
+          this.$dDelay(100).then(() => {
+            this.$tab.switchTab('/pages/jogos/index')
+          })
+        } else if (item.path) {
+          // Navigate to the path if it's a regular menu item
+          uni.navigateTo({
+            url: item.path
+          })
+        }
+        this.$store.dispatch('setFlPopup', false)
+      },
+
 			allBtn(){
 				this.$store.dispatch('setFlPopup', false)
 				this.$tab.reLaunch('/pages/jogos/index')

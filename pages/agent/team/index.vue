@@ -239,13 +239,13 @@
 		</u-calendar>
 		
 		<u-popup :show="bzshow" @close="close" closeable>
-		            <view style="height: 200px;">
+		            <view :style="{ height: user_is_agent === 1 ? '200ox' : '250px' }">
 						<view style="padding: 30rpx;">
-							<view style="font-size: 40rpx;">{{$t('tzsCustomize.title6')}}</view>
+							<view style="font-size: 40rpx;">{{$t('tzsCustomize.title6')}} </view>
 							<view style="margin-top: 40rpx;">
 								<view style="font-size: 28rpx; display: flex; align-items: center;">
 									<u-icon name="account-fill" color="#000" size="20"></u-icon>
-									{{username}} 
+									{{username}}   
 								</view>
 								<view style="margin-top: 20rpx;">
 									  <u--input
@@ -255,6 +255,10 @@
 									    clearable
 									  ></u--input>
 								</view>
+								<view style="margin-top: 20rpx;" v-if="user_is_agnet === 0">
+									 <view style="margin-top: 30rpx;"><u-button size="small" text="升级为代理" @click="upgradeAgent"></u-button></view>
+								</view>
+
 								<view style="margin-top: 30rpx;"><u-button size="small" text="确定" @click="subQz"></u-button></view>
 							</view>
 						</view>
@@ -268,7 +272,7 @@
 		mapGetters
 	} from 'vuex'
 	import {
-		getChildArr,updateUserDesc
+		getChildArr,updateUserDesc,upgradeUserAccount
 	} from '@/api/jogos.js'
 
 	import CustomTabs from '@/components/custom-tabs.vue';
@@ -617,6 +621,7 @@
 			},
 			bzClick(item) {
 				this.username = item.username || ''
+				this.user_is_agnet = item.is_agent
 				this.userData = item;
 				this.bzshow = true
 				console.log(item)
@@ -643,7 +648,32 @@
 					_this.bz = ''
 					_this.bzshow = false
 				}
+			},
+			async upgradeAgent() {
+				let _this = this;
+				
+				// Show confirmation dialog
+				const confirmed = window.confirm("Are you sure you want to upgrade this user to an agent?");
+				if (!confirmed) return;
+
+				const params = {
+					user_id: _this.userData.id,
+				};
+
+				try {
+					let {
+						data,
+						code
+					} = await upgradeUserAccount(params);
+					if (code == 200) {
+						_this.grReportListInfo();
+					}
+				} finally {
+					_this.bz = '';
+					_this.bzshow = false;
+				}
 			}
+
 		}
 	}
 </script>

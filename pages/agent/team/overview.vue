@@ -136,7 +136,7 @@
 			    <!-- Deposit Users -->
 			    <view class="item-btn" style="background-color: #fef7f1;">
 			      <view class="item-content">
-			        <span class="count">{{ dataList.deposit_user_count || 0 }}</span>
+			        <span class="count">{{ dataList.children_with_deposit_count || 0 }}</span>
 			        <span class="item-title">{{ $t('team.text86') }}</span> <!-- Deposit Users -->
 			      </view>
 			    </view>
