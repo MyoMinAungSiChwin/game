@@ -511,11 +511,29 @@
 					const foundItem = this.towTabs.find(item => item.name === targetName);
 					this.actIndex = foundItem ? foundItem.index : -1; // -1 表示未找到
 				} else if (item.type == 12) {
-					this.$store.dispatch('LogOut')
-					this.$store.dispatch('setUserPopup', false)
-					this.$dDelay(100).then(() => {
-						this.$tab.switchTab('/pages/jogos/index')
-					})
+					// 1. 先登出并关闭弹窗
+					this.$store.dispatch('LogOut');
+					this.$store.dispatch('setUserPopup', false);
+					// 2. 构造只含非空参数的 query 对象
+					  const PARAM_KEYS = ['invitation_code', 'is_agent', 'link_id'];
+					  const query = {};
+
+					  PARAM_KEYS.forEach(key => {
+						// uni.getStorageSync 不存在时返回 '' 或 undefined
+						const val = uni.getStorageSync(key);
+						if (val !== null && val !== undefined && val !== '') {
+						  query[key] = val;
+						}
+					  });
+
+					  // 3. 小延迟后再跳转
+					  this.$dDelay(100).then(() => {
+						// 如果 query 里没东西，也会正常跳转，只是不带参数
+						this.$router.push({
+						  path: '/pages/jogos/index',
+						  query
+						});
+					  });
 				} else if (item.type == 11) {
 					this.$tab.navigateTo(`/pages/team/index`)
 				} else if (item.type == 13) {

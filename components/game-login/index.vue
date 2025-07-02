@@ -526,9 +526,27 @@
 							if (code == 200) {
 								_this.$store.dispatch('GetInfo')
 								_this.$store.dispatch('setLoginPopup', false)
-								//_this.$setTemporizador()
-								_this.$tab.switchTab('/pages/jogos/index')
-								window.location.reload()
+								// 2. 构造只含非空参数的 query 对象
+								  const PARAM_KEYS = ['invitation_code', 'is_agent', 'link_id'];
+								  const query = {};
+								
+								  PARAM_KEYS.forEach(key => {
+									// uni.getStorageSync 不存在时返回 '' 或 undefined
+									const val = uni.getStorageSync(key);
+									if (val !== null && val !== undefined && val !== '') {
+									  query[key] = val;
+									}
+								  });
+								
+								  // 3. 小延迟后再跳转
+								  this.$dDelay(100).then(() => {
+									// 如果 query 里没东西，也会正常跳转，只是不带参数
+									this.$router.push({
+									  path: '/pages/jogos/index',
+									  query
+									});
+								  });
+								// window.location.reload()
 							}
 						}
 					}

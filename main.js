@@ -11,7 +11,42 @@ import {
 import i18n from './lang/index.js'
 import config from '@/config.js'
 import uView from "@/uni_modules/uview-ui";
+
 Vue.use(plugins).use(uView)
+
+
+// 需要拦截并追加参数的跳转方法列表
+const NAV_METHODS = ['navigateTo', 'redirectTo', 'switchTab', 'reLaunch'];
+// 缓存里的三个 key
+const PARAM_KEYS = ['invitation_code', 'is_agent', 'link_id'];
+
+NAV_METHODS.forEach(method => {
+  uni.addInterceptor(method, {
+    invoke(args) {
+      // 先拿到本次跳转的原始 url
+      let url = args.url || '';
+      
+      // 取出缓存里要追加的参数
+      const extras = PARAM_KEYS.map(key => {
+        const val = uni.getStorageSync(key);
+        return (val !== null && val !== '' && typeof val !== 'undefined')
+          ? `${key}=${encodeURIComponent(val)}`
+          : null;
+      })
+      .filter(item => item)  // 过滤掉 null
+      .join('&');
+
+      if (extras) {
+        // 判断原 url 有没有查询参数 ?，决定用 & 或 ?
+        const sep = url.includes('?') ? '&' : '?';
+        args.url = `${url}${sep}${extras}`;
+      }
+
+      // 返回 true 才会继续执行跳转
+      return true;
+    }
+  });
+});
 
 // import '@/utils/challenges.js'
 
@@ -52,16 +87,13 @@ Vue.prototype.$mm = plugins
 
 Vue.prototype.$setTemporizador = setInterval(() => {
 	store.dispatch('GetInfo')
-
-
 	// uni.onSocketMessage(res => {
 	// 	const data = JSON.parse(res.data);
 	// 	console.log(data)
 	// });
-
-
-
 }, 5000)
+
+
 
 App.mpType = 'app'
 
