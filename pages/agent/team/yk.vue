@@ -50,6 +50,7 @@
 										</view>
 									</view>
 									<view class="calendar-group item-spacing" style="margin-top: 30rpx;">
+										 <text style="font-size: 12px;">自定义</text>
 										<view class="calendar-select" @tap="dateTypeTimeClick('select')">
 											<view class="am-button-icon"><span style="padding: 20rpx;">
 													{{filters.startTime}}
