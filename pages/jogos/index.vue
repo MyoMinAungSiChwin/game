@@ -571,9 +571,25 @@
 		  
 		},
 		onLoad() {
-			uni.setStorageSync('invitation_code',this.getUrlParam('invitation_code'));
-			uni.setStorageSync('is_agent',this.getUrlParam('is_agent'));
-			uni.setStorageSync('link_id',this.getUrlParam('link_id'));
+			  // 要处理的参数列表
+			  const keys = ['invitation_code', 'is_agent', 'link_id'];
+
+			  keys.forEach(key => {
+				// 从 URL 里取值（如果没传则返回 undefined 或 null）
+				const urlVal = this.getUrlParam(key);
+				// 从缓存里取旧值，默认空字符串
+				const oldVal = uni.getStorageSync(key) || '';
+
+				if (typeof urlVal !== 'undefined' && urlVal !== null) {
+				  // URL 里有：只有跟缓存不同时才更新
+				  if (urlVal !== oldVal) {
+					uni.setStorageSync(key, urlVal);
+				  }
+				} else {
+				  // URL 里没该字段：强制写入空字符串（覆盖可能存在的旧值）
+				  // uni.setStorageSync(key, '');
+				}
+			  });
 		},
 		onHide() {
 			this.saveState();
