@@ -101,61 +101,69 @@
                 </view>
                  -->
           <!--- TZS -->
-          <view class="item-btn" style="background-color: #fdf1f1;">
-            <view class="item-content">
-              <span class="count">{{ dataList.reg_count || 0 }}</span>
-              <span class="item-title">{{ $t('team.text21') }}</span> <!-- 注册人数 -->
-            </view>
-          </view>
-
-          <view class="item-btn" style="background-color: #f3f1fe;">
-            <view class="item-content">
-              <span class="count">{{ dataList.jl_count || 0 }}</span>
-              <span class="item-title">{{ $t('team.text22') }}</span> <!-- 奖励佣金 -->
-            </view>
-          </view>
-
-          <view class="item-btn" style="background-color: #fcf1ff;">
-            <view class="item-content">
-              <span class="count">{{ dataList.tzrs_count || 0 }}</span>
-              <span class="item-title">{{ $t('team.text88') }}</span> <!-- 存款用户数 -->
-            </view>
-          </view>
-
-          <view class="item-btn" style="background-color: #f1fef4;">
-            <view class="item-content">
-              <span class="count">{{ dataList.withdraw_users || 0 }}</span>
-              <span class="item-title">{{ $t('team.text89') }}</span> <!-- 提款用户数 -->
-            </view>
-          </view>
-
-          <view class="item-btn" style="background-color: #fef7f1;">
-            <view class="item-content">
-              <span class="count">{{ dataList.deposit_users || 0 }}</span>
-              <span class="item-title">{{ $t('team.text86') }}</span> <!-- 新亏损 -->
-            </view>
-          </view>
-
-          <view class="item-btn" style="background-color: #f1fbfd;">
-            <view class="item-content">
-              <span class="count">{{ dataList.withdraw_users || 0 }}</span>
-              <span class="item-title">{{ $t('team.text87') }}</span> <!-- 新盈利 -->
-            </view>
-          </view>
-
-          <view class="item-btn" style="background-color: #fdf1f1;">
-            <view class="item-content">
-              <span class="count">{{ dataList.deposit_amount || 0 }}</span>
-              <span class="item-title">{{ $t('team.text84') }}</span> <!-- 存款金额 -->
-            </view>
-          </view>
-
-          <view class="item-btn" style="background-color: #f3f1fe;">
-            <view class="item-content">
-              <span class="count">{{ dataList.withdraw_amount || 0 }}</span>
-              <span class="item-title">{{ $t('team.text85') }}</span> <!-- 提款金额 -->
-            </view>
-          </view>
+			    <!-- Registered Users -->
+			    <view class="item-btn" style="background-color: #fdf1f1;">
+			      <view class="item-content">
+			        <span class="count">{{ dataList.registered_user_count || 0 }}</span>
+			        <span class="item-title">{{ $t('team.text21') }}</span> <!-- Registered Users -->
+			      </view>
+			    </view>
+			
+			    <!-- Login Users (assumed same as registered in your logic) -->
+			    <view class="item-btn" style="background-color: #f3f1fe;">
+			      <view class="item-content">
+			        <span class="count">{{ dataList.reg_count || 0 }}</span>
+			        <span class="item-title">{{ $t('team.text22') }}</span> <!-- Login Users -->
+			      </view>
+			    </view>
+			
+			    <!-- Distinct Bettors -->
+			    <view class="item-btn" style="background-color: #fcf1ff;">
+			      <view class="item-content">
+			        <span class="count">{{ dataList.distinct_bettor_count || 0 }}</span>
+			        <span class="item-title">{{ $t('team.text88') }}</span> <!-- Bet Users Count -->
+			      </view>
+			    </view>
+			
+			    <!-- Withdrawal Users -->
+			    <view class="item-btn" style="background-color: #f1fef4;">
+			      <view class="item-content">
+			        <span class="count">{{ dataList.withdraw_user_count || 0 }}</span>
+			        <span class="item-title">{{ $t('team.text89') }}</span> <!-- Withdrawal Users -->
+			      </view>
+			    </view>
+			
+			    <!-- Deposit Users -->
+			    <view class="item-btn" style="background-color: #fef7f1;">
+			      <view class="item-content">
+			        <span class="count">{{ dataList.deposit_user_count || 0 }}</span>
+			        <span class="item-title">{{ $t('team.text86') }}</span> <!-- Deposit Users -->
+			      </view>
+			    </view>
+			
+			    <!-- First Deposit Users (assumed same as deposit_user_count) -->
+			    <view class="item-btn" style="background-color: #f1fbfd;">
+			      <view class="item-content">
+			        <span class="count">{{ dataList.deposit_user_count || 0 }}</span>
+			        <span class="item-title">{{ $t('team.text87') }}</span> <!-- First Deposit Users -->
+			      </view>
+			    </view>
+			
+			    <!-- Total Deposit Amount -->
+			    <view class="item-btn" style="background-color: #fdf1f1;">
+			      <view class="item-content">
+			        <span class="count">{{ dataList.total_deposit_amount || 0 }}</span>
+			        <span class="item-title">{{ $t('team.text84') }}</span> <!-- Deposit Amount -->
+			      </view>
+			    </view>
+			
+			    <!-- Total Withdraw Amount -->
+			    <view class="item-btn" style="background-color: #f3f1fe;">
+			      <view class="item-content">
+			        <span class="count">{{ dataList.total_withdraw_amount || 0 }}</span>
+			        <span class="item-title">{{ $t('team.text85') }}</span> <!-- Withdraw Amount -->
+			      </view>
+			    </view>
 
         </view>
       </view>
