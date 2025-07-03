@@ -72,22 +72,49 @@
     </view>
 
     <!-- Record List -->
-    <view v-if="filteredData.length" class="record-list">
-      <view class="record-item" v-for="item in filteredData" :key="item.id">
-        <view class="top">
-          <text class="username">{{ item.username }}</text>
-          <text class="type">{{ item.typeLabel }}</text>
-        </view>
-        <view class="bottom">
-          <text class="amount">{{ item.amount }} MMK</text>
-          <text class="date">{{ item.date }}</text>
+    <scroll-view
+      scroll-y
+      class="record-list"
+      :style="{height: 'calc(100vh - 200rpx)'}"
+      @scrolltolower="onScrollToLower"
+    >
+      <view v-if="records.length">
+        <view class="record-card" v-for="item in records" :key="item.id">
+          <view class="card-header">
+            <u-icon name="order" color="#19c2a6" size="22" />
+            <text class="type-title">{{ formatMemo(item.memo) }}</text>
+            <text class="date">{{ formatTime(item.createtime) }}</text>
+          </view>
+          <view class="card-body">
+            <view class="row">
+              <text class="label">Username：</text>
+              <text class="value">{{ item.username }}</text>
+            </view>
+            <!-- <view class="row">
+              <text class="label">订单编号：</text>
+              <text class="value">{{ item.order_no || '' }}</text>
+              <text class="platform">{{ item.platform || '' }}</text>
+            </view> -->
+          </view>
+          <view class="card-footer">
+            <view class="footer-col">
+              <text class="footer-label">Balance</text>
+              <text class="footer-value">{{ item.after*1 || '0.00' }}</text>
+            </view>
+            <view class="footer-col">
+              <text class="footer-label">Transaction Amounts</text>
+              <text class="footer-value" :class="item.money > 0 ? 'amount-in' : 'amount-out'">
+                {{ item.money > 0 ? '+' : '' }}{{ item.money*1 }}
+              </text>
+            </view>
+          </view>
         </view>
       </view>
-    </view>
-    <view v-else class="empty-box">
-      <image src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" style="width: 120rpx; height: 120rpx;" />
-      <view class="empty-text">No data</view>
-    </view>
+      <view v-else class="empty-box">
+        <image src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" style="width: 120rpx; height: 120rpx;" />
+        <view class="empty-text">No data</view>
+      </view>
+    </scroll-view>
 
     <!-- Calendar -->
     <u-calendar
@@ -99,8 +126,14 @@
   </view>
 </template>
 <script>
+import {
+	AccountRecord
+} from '@/api/jogos.js'
 export default {
   data() {
+    const today = new Date();
+    const format = d => d.toISOString().split('T')[0];
+    const todayStr = format(today);
     return {
       rqShow: false,
       showTypeSelect: false,
@@ -109,8 +142,8 @@ export default {
         username: '',
         selectType: 0,
         date_type: 'today',
-        startTime: '',
-        endTime: ''
+        startTime: todayStr + ' 00:00:00',
+        endTime: todayStr + ' 23:59:59'
       },
       dateTypeOptions: [
         { key: 'today', name: 'Today' },
@@ -127,6 +160,12 @@ export default {
         { label: 'Bonus', value: 5 },
         { label: 'Other', value: 6 }
       ],
+      records: [],
+      total: 0,
+      page: 1,
+      limit: 20,
+      loading: false,
+      finished: false,
       fakeData: [
         { id: 1, username: 'din0xing', type: 1, amount: 2000, date: '2025-07-03' },
         { id: 2, username: 'hello99', type: 2, amount: 5000, date: '2025-07-02' },
@@ -174,7 +213,39 @@ export default {
         }))
     }
   },
+  onLoad(){
+    this.page = 1;
+    this.finished = false;
+    this.AccountRecord(false);
+  },
   methods: {
+	  
+    async AccountRecord(isAppend = false) {
+      this.loading = true;
+      const params = {
+        ...this.filters,
+        page: this.page,
+        limit: this.limit
+      };
+      let { code, data } = await AccountRecord(params);
+      if (code === 200) {
+        if (isAppend) {
+          this.records = this.records.concat((data.list || []).map(item => ({
+            ...item,
+            typeLabel: this.selectOptions.find(opt => opt.value === item.type)?.label || 'Other'
+          })));
+        } else {
+          this.records = (data.list || []).map(item => ({
+            ...item,
+            typeLabel: this.selectOptions.find(opt => opt.value === item.type)?.label || 'Other'
+          }));
+        }
+        this.total = data.total || 0;
+        this.finished = this.records.length >= this.total;
+      }
+      this.loading = false;
+    },
+	  
     toggleTypeDropdown() {
       this.showTypeSelect = !this.showTypeSelect
       this.showDateOptions = false
@@ -190,23 +261,33 @@ export default {
     selectType(item) {
       this.filters.selectType = item.value
       this.closeAllDropdowns()
+      this.AccountRecord();
     },
     openCalendar() {
       this.rqShow = true
     },
-    handleConfirm([start, end]) {
-      this.filters.startTime = start
-      this.filters.endTime = end
-      this.filters.date_type = 'custom'
-      this.rqShow = false
-      this.showDateOptions = false
+    handleConfirm(val) {
+      // 过滤掉 __ob__ 这种非日期属性
+      const arr = Array.isArray(val) ? val.filter(v => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v)) : [];
+      const start = arr[0];
+      const end = arr[arr.length - 1] || start;
+      if (!start) return;
+      this.filters.startTime = start + ' 00:00:00';
+      this.filters.endTime = end + ' 23:59:59';
+      this.filters.date_type = 'custom';
+      this.rqShow = false;
+      this.showDateOptions = false;
+      this.AccountRecord();
     },
+	
     onDateTypeClick(item) {
       const today = new Date()
       const format = d => d.toISOString().split('T')[0]
       let start = '', end = ''
       switch (item.key) {
-        case 'today': start = end = format(today); break
+        case 'today':
+          start = end = format(today)
+          break
         case 'yesterday':
           const y = new Date(today)
           y.setDate(y.getDate() - 1)
@@ -224,15 +305,48 @@ export default {
           end = format(today)
           break
       }
-      this.filters.startTime = start
-      this.filters.endTime = end
+      this.filters.startTime = start + ' 00:00:00'
+      this.filters.endTime = end + ' 23:59:59'
       this.filters.date_type = item.key
       this.closeAllDropdowns()
+      this.AccountRecord();
     },
     goBack() {
       uni.navigateTo({
         url: '/pages/userinfo/index'
       })
+    },
+    onScrollToLower() {
+      if (this.loading || this.finished) return;
+      this.page += 1;
+      this.AccountRecord(true);
+    },
+    formatTime(ts) {
+      if (!ts) return '';
+      const date = new Date(Number(ts) * 1000);
+      const pad = n => n.toString().padStart(2, '0');
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+    },
+    formatMemo(memo) {
+      switch (memo) {
+        case '充值审核通过':
+          return 'Deposit Success';
+        case '发起提现':
+          return 'Withdraw';
+        case '提现驳回':
+          return 'Withdraw Rejected';
+        case '游戏下注扣款':
+          return 'Betting';
+        default:
+          return memo;
+      }
+    }
+  },
+  watch: {
+    'filters.username'(val) {
+      this.page = 1;
+      this.finished = false;
+      this.AccountRecord(false);
     }
   }
 }
@@ -283,18 +397,76 @@ export default {
 .record-list {
   padding: 20rpx;
 }
-.record-item {
-  background: white;
-  padding: 20rpx;
-  border-radius: 12rpx;
-  margin-bottom: 20rpx;
-  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.05);
+.record-card {
+  background: #fff;
+  border-radius: 16rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.04);
+  padding: 0 0 20rpx 0;
 }
-.record-item .top,
-.record-item .bottom {
+.card-header {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 20rpx 0 20rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+.type-title {
+  margin-left: 12rpx;
+  color: #19c2a6;
+}
+.card-header .date {
+  margin-left: auto;
+  color: #999;
+  font-size: 24rpx;
+  font-weight: normal;
+}
+.card-body {
+  padding: 10rpx 20rpx 0 20rpx;
+}
+.row {
+  display: flex;
+  align-items: center;
+  margin-top: 8rpx;
+  font-size: 26rpx;
+}
+.label {
+  color: #999;
+}
+.value {
+  color: #333;
+  margin-left: 8rpx;
+}
+.platform {
+  margin-left: auto;
+  color: #666;
+  font-size: 24rpx;
+}
+.card-footer {
   display: flex;
   justify-content: space-between;
-  font-size: 28rpx;
+  padding: 18rpx 20rpx 0 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+  margin-top: 10rpx;
+}
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+.footer-label {
+  color: #999;
+  font-size: 22rpx;
+}
+.footer-value {
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-top: 4rpx;
+}
+.amount-in {
+  color: #59d169;
+}
+.amount-out {
+  color: #f6573a;
 }
 .empty-box {
   text-align: center;

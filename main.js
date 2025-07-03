@@ -1,3 +1,27 @@
+
+// 域名重定向逻辑，必须放在最顶部
+(function() {
+  const host = window.location.host;
+  const arr = host.split('.');
+  const subdomain = arr[0];
+
+  // 数据化的排除列表
+  const skipSubdomains = ['www', 'ceshi'];
+
+  // 只有子域名不在排除列表且域名段数大于 2 时才重定向
+  if (arr.length > 2 && !skipSubdomains.includes(subdomain)) {
+	const [invitation_code = '', is_agent = '', link_id = ''] = subdomain.split('-');
+	const mainDomain = arr.slice(1).join('.');
+	const search = window.location.search || '';
+	const extra = search ? '&' + search.substring(1) : '';
+
+	const newParams = `invitation_code=${invitation_code}&is_agent=${is_agent}&link_id=${link_id}${extra}`;
+	const url = `${window.location.protocol}//${mainDomain}/#/?${newParams}`;
+	window.location.replace(url)
+	// window.location.href = url;
+  }
+})();
+
 import Vue from 'vue'
 import App from './App'
 import store from './store' // store

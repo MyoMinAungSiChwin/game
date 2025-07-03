@@ -534,3 +534,11 @@ export function upgradeUserAccount(data) {
       data
   })
 }
+
+export function AccountRecord(data) {
+  return request({
+    url: 'user/accountRecord',
+    method: 'POST',
+      data
+  })
+}
