@@ -213,14 +213,21 @@ export function zlList(data) {
 }
 
 //团队
+// export function grReportList(data) {
+// 	return request({
+// 		url: 'restricted/grReportLists',
+// 		method: 'POST',
+// 		data
+// 	})
+// }
+//团队
 export function grReportList(data) {
-	return request({
-		url: 'restricted/grReportLists',
-		method: 'POST',
-		data
-	})
+  return request({
+    url: 'restricted/grReportListtest',
+    method: 'POST',
+    data
+  })
 }
-
 //我的
 export function myIncome(data) {
 	return request({
@@ -254,6 +261,15 @@ export function getGameTypeList(data) {
 		method: 'POST',
 		data
 	})
+}
+
+
+export function getGameTypeListYk(data) {
+  return request({
+    url: 'restricted/getGameTypeListYk',
+    method: 'POST',
+    data
+  })
 }
 
 export function getGameTypeInfo(data) {
