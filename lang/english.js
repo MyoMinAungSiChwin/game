@@ -547,6 +547,7 @@ export default {
 		text87: 'First deposits',
 		text88: 'Bet Count',
 		text89: 'Promotions',
+		text90:"Account Record",
 	},
 	coupon: {
 		text1: 'Exchange',
@@ -610,6 +611,7 @@ export default {
 		title4:"No data yet",
 		title5:"Gift amount:",
 		title6:"Modify remarks",
-		title7:'Total Win/Loss'
+		title7:'Total Win/Loss',
+		
 	}
 }
