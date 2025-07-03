@@ -654,6 +654,9 @@
 				this.pageSize = 150;
 				this.hasMore = true; // 同样重置hasMore
 				this.keyword = ''
+				const currentDomain = window.location.origin;
+				const externalUrl = `${currentDomain}/#/?isApp=1`;
+				// window.location.href = externalUrl;
 				this.getBameList();
 			},
 			// 带节流的状态保存
