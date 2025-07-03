@@ -413,6 +413,14 @@
 			}
 
 		},{
+			"path": "pages/agent/team/account_record",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		},{
 			"path": "pages/splash/splash",
 			"style": {
 				"navigationBarTitleText": "BlackDiamond",

@@ -405,6 +405,12 @@
 						url: '/pages/agent/team/mysr',
 						type: 1
 					},
+					{
+						icon: '/static/images/grzx/new/yqjl.png',
+						text: this.$t('team.text90'),
+						url: '/pages/agent/team/account_record',
+						type: 1
+					},
 				],
 
 				childList: [{

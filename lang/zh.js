@@ -276,6 +276,7 @@ export default {
 		text87: '首存人数',
 		text88: '投注人数',
 		text89: '赠送人数',
+		text90: "账户记录",
 	},
 	voucher: {
 		text1: '充值',
