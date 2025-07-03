@@ -548,6 +548,10 @@ export default {
 		text88: 'Bet Count',
 		text89: 'Promotions',
 		text90:"Account Record",
+		text91:"Customize",
+		text92:"Filter empty numbers",
+		text93:"direct member",
+		text94:"Prize amount",
 	},
 	coupon: {
 		text1: 'Exchange',

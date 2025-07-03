@@ -277,6 +277,10 @@ export default {
 		text88: '投注人数',
 		text89: '赠送人数',
 		text90: "账户记录",
+		text91:"自定义",
+		text92:"过滤空号",
+		text93:"直属会员",
+		text94:"派奖金额",
 	},
 	voucher: {
 		text1: '充值',

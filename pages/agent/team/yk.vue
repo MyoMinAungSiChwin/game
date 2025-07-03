@@ -15,7 +15,7 @@
 		</view>
 		<view>
 			<!-- 自定义tabs组件 -->
-			<!-- <custom-tabs :tabsList="tabs" @change="handleTabChange" :isShow="true" /> -->
+			<custom-tabs :tabsList="tabs" @change="handleTabChange" :isShow="true" />
 			<!-- 内容区域 -->
 			<view class="content">
 				<view>
@@ -50,7 +50,7 @@
 										</view>
 									</view>
 									<view class="calendar-group item-spacing" style="margin-top: 30rpx;">
-										<text style="font-size: 12px;">自定义</text>
+										<text style="font-size: 12px;">{{$t('team.text91')}}</text>
 										<view class="calendar-select" @tap="dateTypeTimeClick('select')">
 											<view class="am-button-icon"><span style="padding: 20rpx;">
 													{{filters.startTime}}
@@ -60,7 +60,7 @@
 										</view>
 									</view>
 									<view style="margin-top: 30rpx; display: flex; justify-content: space-between; align-items: center;">
-										<view style="font-size: 30rpx;">过滤空号</view>
+										<view style="font-size: 30rpx;">{{$t('team.text92')}}</view>
 										<view><u-switch v-model="lv" size="20" @change="change"></u-switch></view>
 									</view>
 								</view>
@@ -87,7 +87,7 @@
 											<view class="cards-title" @click="zsClick"
 												style="padding:0 20rpx; display: flex; justify-content: space-between;">
 												<view style="font-weight: bold;">{{userInfo.username || ''}}</view>
-												<view>直属会员{{dataList.zs || 0 }} <span
+												<view>{{$t('team.text93')}}{{dataList.zs || 0 }} <span
 														style="margin-left: 10rpx;">></span></view>
 											</view>
 											<view class="card">
@@ -119,7 +119,7 @@
 															style="color: blue;">{{dataList.zzs || 0}}</text>
 													</view>
 													<view class="item" v-if="currentTab  !== 0">
-														<text class="label">派奖金额</text>
+														<text class="label">{{ $t('team.text94')}}</text>
 														<text class="value">{{dataList.actualStake || 0}}</text>
 													</view>
 													<!-- <view class="item">
