@@ -280,8 +280,8 @@
 			:defaultDate="calendar.defaultDate" @close="rqShow=false" @confirm="handleConfirm" closeOnClickOverlay>
 		</u-calendar>
 
-		<u-popup :show="zshyShow" mode="bottom" safeAreaInsetTop @close="zshyClose">
-			<view style="height: 90vh; overflow: auto;">
+		<u-popup :show="zshyShow" mode="bottom" safeAreaInsetTop @close="zshyClose" closeable>
+			<view style="height: 80vh; overflow: auto;">
 				<view v-for="(item,key) in dataList.zs_user_list_data">
 					<view class="cards-title" @click="zsClick"
 						style="padding:0 20rpx; display: flex; justify-content: space-between;margin-top:20px;">

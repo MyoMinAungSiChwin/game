@@ -1,6 +1,6 @@
 <template>
   <view class="game_header">
-	
+
     <view class="header-container" :style="{ top: headerTop }">
       <!-- 添加的顶部推广条 -->
       <view class="promotion-header" v-if="showPromotion">
@@ -109,6 +109,7 @@
 </template>
 
 <script>
+
 	import {dowloadUrl
 	} from '@/api/jogos.js'
 import {
@@ -208,7 +209,7 @@ export default {
 
     // 👉 Auto select English as default if no language is stored
     const storedLang = uni.getStorageSync('language');
-	
+
     if (!storedLang) {
       this.$store.dispatch('Language', 'zh').then(() => {
         uni.setStorageSync('language', 'zh');
@@ -316,9 +317,17 @@ export default {
       this.isMoneyHidden = !this.isMoneyHidden
     },
     setLoginBox(index) {
+
       console.log("---------------------------")
       this.$store.dispatch('setLoginPopup', true)
       this.loginIndex = index
+      const banner = document.getElementById("appBanner")
+      if (banner) {
+        banner.style.display = "none"
+      }
+      // if (!location.hash.includes('isApp=1')) {
+      //   location.hash = '#/?isApp=1';
+      // }
     },
     // 下载APP
     downloadApp() {

@@ -467,6 +467,7 @@
 		},
 		data() {
 			return {
+
 				isAppBannerVisible: true,
 				navItemStatus: 0, //导航栏目索引
 				loginNavInfo: [{

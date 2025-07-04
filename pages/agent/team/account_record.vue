@@ -117,12 +117,14 @@
     </scroll-view>
 
     <!-- Calendar -->
-    <u-calendar
-      :show="rqShow"
-      mode="range"
-      @confirm="handleConfirm"
-      @close="rqShow = false"
-    />
+	<u-calendar
+	  :show="rqShow"
+	  mode="range"
+	  :min-date="minDate"
+	  :max-date="maxDate"
+	  @confirm="handleConfirm"
+	  @close="rqShow = false"
+	/>
   </view>
 </template>
 <script>
@@ -173,46 +175,55 @@ export default {
       ]
     }
   },
-  computed: {
-    selectedTypeLabel() {
-      return this.selectOptions.find(i => i.value === this.filters.selectType)?.label || 'All'
-    },
-    selectedDateTypeName() {
-      const labelMap = {
-        today: 'Today',
-        yesterday: 'Yesterday',
-        last7days: 'Last 7 Days',
-        month: 'This Month',
-        custom: `${this.filters.startTime || 'Start'} - ${this.filters.endTime || 'End'}`
-      }
-      return labelMap[this.filters.date_type] || 'Custom'
-    },
-    currentDefaultDate() {
-      const today = new Date().toISOString().split('T')[0]
-      return [this.filters.startTime || today, this.filters.endTime || today]
-    },
-    minDate() {
-      return '2025-01-01'
-    },
-    maxDate() {
-      const d = new Date()
-      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
-    },
-    filteredData() {
-      const { username, selectType, startTime, endTime } = this.filters
-      return this.fakeData
-        .filter(item => {
-          const matchUser = !username || item.username.includes(username)
-          const matchType = selectType === 0 || item.type === selectType
-          const matchDate = (!startTime || !endTime) || (item.date >= startTime && item.date <= endTime)
-          return matchUser && matchType && matchDate
-        })
-        .map(item => ({
-          ...item,
-          typeLabel: this.selectOptions.find(opt => opt.value === item.type)?.label || 'Other'
-        }))
-    }
-  },
+	computed: {
+	  // ✅ 3 months ago
+	  minDate() {
+	    const d = new Date();
+	    d.setMonth(d.getMonth() - 2);
+	    return d.toISOString().split('T')[0];
+	  },
+	
+	  // ✅ Today
+	  maxDate() {
+	    const d = new Date();
+	    return d.toISOString().split('T')[0];
+	  },
+	
+	  selectedTypeLabel() {
+	    return this.selectOptions.find(i => i.value === this.filters.selectType)?.label || 'All';
+	  },
+	
+	  selectedDateTypeName() {
+	    const labelMap = {
+	      today: 'Today',
+	      yesterday: 'Yesterday',
+	      last7days: 'Last 7 Days',
+	      month: 'This Month',
+	      custom: `${this.filters.startTime || 'Start'} - ${this.filters.endTime || 'End'}`
+	    };
+	    return labelMap[this.filters.date_type] || 'Custom';
+	  },
+	
+	  currentDefaultDate() {
+	    const today = new Date().toISOString().split('T')[0];
+	    return [this.filters.startTime || today, this.filters.endTime || today];
+	  },
+	
+	  filteredData() {
+	    const { username, selectType, startTime, endTime } = this.filters;
+	    return this.fakeData
+	      .filter(item => {
+	        const matchUser = !username || item.username.includes(username);
+	        const matchType = selectType === 0 || item.type === selectType;
+	        const matchDate = (!startTime || !endTime) || (item.date >= startTime && item.date <= endTime);
+	        return matchUser && matchType && matchDate;
+	      })
+	      .map(item => ({
+	        ...item,
+	        typeLabel: this.selectOptions.find(opt => opt.value === item.type)?.label || 'Other'
+	      }));
+	  }
+	},
   onLoad(){
     this.page = 1;
     this.finished = false;
@@ -220,32 +231,62 @@ export default {
   },
   methods: {
 	  
-    async AccountRecord(isAppend = false) {
-      this.loading = true;
-      const params = {
-        ...this.filters,
-        page: this.page,
-        limit: this.limit
-      };
-      let { code, data } = await AccountRecord(params);
-      if (code === 200) {
-        if (isAppend) {
-          this.records = this.records.concat((data.list || []).map(item => ({
-            ...item,
-            typeLabel: this.selectOptions.find(opt => opt.value === item.type)?.label || 'Other'
-          })));
-        } else {
-          this.records = (data.list || []).map(item => ({
-            ...item,
-            typeLabel: this.selectOptions.find(opt => opt.value === item.type)?.label || 'Other'
-          }));
-        }
-        this.total = data.total || 0;
-        this.finished = this.records.length >= this.total;
-      }
-      this.loading = false;
-    },
+   //  async AccountRecord(isAppend = false) {
+   //    this.loading = true;
+   //    const params = {
+   //      ...this.filters,
+   //      page: this.page,
+   //      limit: this.limit
+   //    };
+   //    let { code, data } = await AccountRecord(params);
+   //    if (code === 200) {
+   //      if (isAppend) {
+   //        this.records = this.records.concat((data.list || []).map(item => ({
+   //          ...item,
+   //          typeLabel: this.selectOptions.find(opt => opt.value === item.type)?.label || 'Other'
+   //        })));
+   //      } else {
+   //        this.records = (data.list || []).map(item => ({
+   //          ...item,
+   //          typeLabel: this.selectOptions.find(opt => opt.value === item.type)?.label || 'Other'
+   //        }));
+   //      }
+   //      this.total = data.total || 0;
+   //      this.finished = this.records.length >= this.total;
+   //    }
+   //    this.loading = false;
+   //  },
+	  async AccountRecord(isAppend = false) {
+	    this.loading = true;
+	    const params = {
+	      ...this.filters,
+	      page: this.page,
+	      limit: this.limit
+	    };
 	  
+	    let { code, data } = await AccountRecord(params);
+	  
+	    // ✅ Console log the raw response for debugging
+	    console.log('API Params:', params);
+	    console.log('API Response:', data);
+	  
+	    if (code === 200) {
+	      const processedData = (data.list || []).map(item => ({
+	        ...item,
+	        typeLabel: this.selectOptions.find(opt => opt.value === item.type)?.label || 'Other'
+	      }));
+	  
+	      if (isAppend) {
+	        this.records = this.records.concat(processedData);
+	      } else {
+	        this.records = processedData;
+	      }
+	  
+	      this.total = data.total || 0;
+	      this.finished = this.records.length >= this.total;
+	    }
+	    this.loading = false;
+	  },
     toggleTypeDropdown() {
       this.showTypeSelect = !this.showTypeSelect
       this.showDateOptions = false

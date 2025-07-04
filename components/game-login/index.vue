@@ -1,11 +1,11 @@
 <template>
 	<view class="game_login">
-		<u-popup :show="showLoginPopup" mode="bottom"
+		<u-popup  :show="showLoginPopup" mode="bottom"
 			@close="$store.dispatch('setLoginPopup', false); returnForm(); resetCheck()" :round="10">
 			<view class="d_login_popup" style="
   background-image: url('../static/images/bj.jpg');
-     background-size: 100% 100%;   
-      background-repeat: no-repeat;   
+     background-size: 100% 100%;
+      background-repeat: no-repeat;
   background-position: center;
   display: flex;
   flex-direction: column;
@@ -291,6 +291,7 @@
 	} from '@/api/login.js'
 
 	export default {
+
 		name: "gameLogin",
 		props: {
 			loginIndex: {
@@ -310,27 +311,54 @@
 				default: ''
 			}
 		},
-		created() {
-			this.loginNavIndex = this.loginIndex;
-			this.$dDelay(200).then(() => {
-				this.$set(this.loginForm, 'invitation_code', this.invitation_code)
-				this.$set(this.loginForm, 'is_agent', this.is_agent)
-				this.$set(this.loginForm, 'link_id', this.link_id)
-			})
-			try {
-				const remembered = storageUtil.getSecureStorage('rememberedAccount');
-				if (remembered && remembered.remember) {
-					this.loginForm.account = remembered.username;
-					this.loginForm.username = remembered.username;
-					this.loginForm.password = remembered.password;
-					this.remember = remembered.remember;
-				}
-			} catch (e) {
-				console.error('读取失败:', e);
-			}
-		},
-		data() {
+		// created() {
+		// 	this.loginNavIndex = this.loginIndex;
+		// 	this.$dDelay(200).then(() => {
+		// 		this.$set(this.loginForm, 'invitation_code', this.invitation_code)
+		// 		this.$set(this.loginForm, 'is_agent', this.is_agent)
+		// 		this.$set(this.loginForm, 'link_id', this.link_id)
+		// 	})
+		// 	try {
+		// 		const remembered = storageUtil.getSecureStorage('rememberedAccount');
+		// 		if (remembered && remembered.remember) {
+		// 			this.loginForm.account = remembered.username;
+		// 			this.loginForm.username = remembered.username;
+		// 			this.loginForm.password = remembered.password;
+		// 			this.remember = remembered.remember;
+		// 		}
+		// 	} catch (e) {
+		// 		console.error('读取失败:', e);
+		// 	}
+		// },
+    created() {
+      this.loginNavIndex = this.loginIndex;
+
+      this.$dDelay(200).then(() => {
+        this.$set(this.loginForm, 'invitation_code', this.invitation_code)
+        this.$set(this.loginForm, 'is_agent', this.is_agent)
+        this.$set(this.loginForm, 'link_id', this.link_id)
+      })
+
+      try {
+        const remembered = storageUtil.getSecureStorage('rememberedAccount');
+        if (remembered && remembered.remember) {
+          this.loginForm.account = remembered.username;
+          this.loginForm.username = remembered.username;
+          this.loginForm.password = remembered.password;
+          this.remember = remembered.remember;
+        }
+      } catch (e) {
+        console.error('读取失败:', e);
+      }
+
+      // ✅ Auto-set hash to "#/?isApp=1" if not already set
+      // if (!location.hash.includes('isApp=1')) {
+      //   location.hash = '#/?isApp=1';
+      // }
+    },
+    data() {
 			return {
+        //isAppBannerVisible: false,
 				retrievePassword: false,
 				tips: '',
 				isOpen: false,
@@ -529,7 +557,7 @@
 								// 2. 构造只含非空参数的 query 对象
 								  const PARAM_KEYS = ['invitation_code', 'is_agent', 'link_id'];
 								  const query = {};
-								
+
 								  PARAM_KEYS.forEach(key => {
 									// uni.getStorageSync 不存在时返回 '' 或 undefined
 									const val = uni.getStorageSync(key);
@@ -537,7 +565,7 @@
 									  query[key] = val;
 									}
 								  });
-								
+
 								  // 3. 小延迟后再跳转
 								  this.$dDelay(100).then(() => {
 									// 如果 query 里没东西，也会正常跳转，只是不带参数
