@@ -15,7 +15,7 @@
 		</view>
 		<view>
 			<!-- 自定义tabs组件 -->
-			<custom-tabs :tabsList="tabs" @change="handleTabChange" :isShow="true" />
+			<!-- <custom-tabs :tabsList="tabs" @change="handleTabChange" :isShow="true" /> -->
 			<!-- 内容区域 -->
 			<view class="content">
 				<view>
@@ -51,13 +51,34 @@
 									</view>
 									<view class="calendar-group item-spacing" style="margin-top: 30rpx;">
 										<text style="font-size: 12px;">{{$t('team.text91')}}</text>
-										<view class="calendar-select" @tap="dateTypeTimeClick('select')">
+										<view style="margin-top: 20rpx;">
+										 <!-- <view style="font-size: 30rpx; margin-bottom: 20rpx;">自定义</view> -->
+										  <view>
+										    <!-- 	<u--input placeholder="请选择日期" border="surround"></u--input> -->
+										    <!-- #ifndef APP-NVUE -->
+										    <u-input placeholder="请选择日期" v-model="textDate" disabled="">
+										      <!-- #endif -->
+										      <!-- #ifdef APP-NVUE -->
+										      <u--input placeholder="请选择日期" v-model="textDate" disabled="">
+										        <!-- #endif -->
+										       <template slot="suffix">
+										          <u-button @tap="dateTypeTimeClick('select')"  color="#be984c" size="mini">选择日期</u-button>
+										        </template>
+										        <!-- #ifndef APP-NVUE -->
+										    </u-input>
+										    <!-- #endif -->
+										    <!-- #ifdef APP-NVUE -->
+										    </u--input>
+										    <!-- #endif -->
+										  </view>
+										</view>
+										<!-- <view class="calendar-select" @tap="dateTypeTimeClick('select')">
 											<view class="am-button-icon"><span style="padding: 20rpx;">
 													{{filters.startTime}}
 													-
 													{{filters.endTime }}</span>
 											</view>
-										</view>
+										</view> -->
 									</view>
 									<view style="margin-top: 30rpx; display: flex; justify-content: space-between; align-items: center;">
 										<view style="font-size: 30rpx;">{{$t('team.text92')}}</view>
@@ -66,7 +87,7 @@
 								</view>
 							</view>
 						</view>
-						<view>
+						<view style="border:1px solid black;margin: 10px;">
 							<view style="display: flex;justify-content: space-between;align-items: center;">
 								<view style="margin:20rpx;">
 									<view

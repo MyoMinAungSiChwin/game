@@ -43,7 +43,7 @@
             <!-- #ifdef APP-NVUE -->
             <u--input placeholder="请选择日期" v-model="textDate" disabled="">
               <!-- #endif -->
-              <template slot="suffix">
+             <template slot="suffix">
                 <u-button @tap="selectDate"  color="#be984c" size="mini">选择日期</u-button>
               </template>
               <!-- #ifndef APP-NVUE -->

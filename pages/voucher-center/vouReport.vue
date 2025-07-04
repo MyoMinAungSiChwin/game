@@ -275,7 +275,7 @@
 				this.timeShow = false
 			},
 			leftClick() {
-				this.$tab.navigateTo(`/pages/userinfo/index`)
+				this.$tab.navigateTo(`/pages/voucher-center/index`)
 			},
 			orderClick() {
 				this.$tab.navigateTo(`/pages/voucher-center/vouReport`)

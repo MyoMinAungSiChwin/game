@@ -304,16 +304,26 @@
 										style="width: 48% !important; height: 98px !important;margin-right: 5px!important;margin:3px;"
 										v-for="(v, i) in zrList" :key="i" @tap="zrClick(v)">
 
-										<u--image radius="10rpx"
-											:src="i === 1 ? require('../../static/images/tzs/game2.jpg') : v.url"
-											width="100%" height="98px">
+<!--										<u&#45;&#45;image radius="10rpx"-->
+<!--											:src="i === 1 ? require('../../static/images/tzs/game2.jpg') : v.url"-->
+<!--											width="100%" height="98px">-->
 
-											<template v-slot:loading>
-												<u-loading-icon color="#666"></u-loading-icon>
-											</template>
-										</u--image>
+<!--											<template v-slot:loading>-->
+<!--												<u-loading-icon color="#666"></u-loading-icon>-->
+<!--											</template>-->
+<!--										</u&#45;&#45;image>-->
 
-									</view>
+                    <u--image radius="10rpx"
+                              :src="v.url"
+                              width="100%" height="98px">
+
+                      <template v-slot:loading>
+                        <u-loading-icon color="#666"></u-loading-icon>
+                      </template>
+                    </u--image>
+
+
+                  </view>
 								</view>
 							</view>
 						</view>
