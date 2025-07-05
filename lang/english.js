@@ -552,6 +552,7 @@ export default {
 		text92:"Filter empty numbers",
 		text93:"direct member",
 		text94:"Prize amount",
+		text95:"Team Betting"
 	},
 	coupon: {
 		text1: 'Exchange',

@@ -87,7 +87,7 @@
 								</view>
 							</view>
 						</view>
-						<view style="border:1px solid black;margin: 10px;">
+						<view style="">
 							<view style="display: flex;justify-content: space-between;align-items: center;">
 								<view style="margin:20rpx;">
 									<view
@@ -130,7 +130,7 @@
 													</view>
 
 												</view>
-												<hr>
+												<!-- <hr> -->
 
 												<view class="row" style="margin-top: 20rpx;">
 

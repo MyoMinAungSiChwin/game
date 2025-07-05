@@ -206,6 +206,9 @@ export default {
       this.initPromotionVisibility();
     }
 
+    if(!this.$isLogin()){
+     this.closePromotion();
+    }
 
     // 👉 Auto select English as default if no language is stored
     const storedLang = uni.getStorageSync('language');

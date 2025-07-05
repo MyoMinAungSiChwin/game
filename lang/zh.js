@@ -281,6 +281,7 @@ export default {
 		text92:"过滤空号",
 		text93:"直属会员",
 		text94:"派奖金额",
+		text95:"球队投注",
 	},
 	voucher: {
 		text1: '充值',

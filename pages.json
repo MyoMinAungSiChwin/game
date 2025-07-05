@@ -421,6 +421,13 @@
 			}
 
 		},{
+			"path": "pages/agent/team/team_betting",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},{
 			"path": "pages/splash/splash",
 			"style": {
 				"navigationBarTitleText": "BlackDiamond",

@@ -8,56 +8,56 @@
 		</div>
 		<div v-else class="main-content">
 		
-					<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-					<view v-if="isAppBannerVisible" id="appBanner" style="
-							position: fixed;
-							bottom: 0;
-							left: 0;
-							width: 100%;
-							background-image: url('/static/images/jogos/new/crop_bg.png');
-							background-size: 100% 100%;
-							box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
-							padding: 20rpx 30rpx 28rpx;
-							z-index: 9999;
-							font-family: 'Helvetica Neue', sans-serif;
-							text-align: center;
-							color: #fff;
-							height: 20%;
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+		<view v-if="isAppBannerVisible" id="appBanner" style="
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				background-image: url('/static/images/jogos/new/crop_bg.png');
+				background-size: 100% 100%;
+				box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
+				padding: 20rpx 30rpx 28rpx;
+				z-index: 9999;
+				font-family: 'Helvetica Neue', sans-serif;
+				text-align: center;
+				color: #fff;
+				height: 20%;
 
 
-						">
-						<!-- Close Button -->
-						<view style="
-						position: absolute;
-						top: 10rpx;
-						bottom:5rpx;
-						right: 20rpx;
-						width: 40rpx;
-						height: 40rpx;
-						background-color: rgba(255, 255, 255, 0.1);
+			">
+			<!-- Close Button -->
+			<view style="
+			position: absolute;
+			top: 10rpx;
+			bottom:5rpx;
+			right: 20rpx;
+			width: 40rpx;
+			height: 40rpx;
+			background-color: rgba(255, 255, 255, 0.1);
 
-						border-radius: 50%;
-						font-size: 28rpx;
-						font-weight: bold;
-						line-height: 40rpx;
-						text-align: center;
-						color: #fff;
-						cursor: pointer;
-						" @click="closeBanner">
-							×
-						</view>
+			border-radius: 50%;
+			font-size: 28rpx;
+			font-weight: bold;
+			line-height: 40rpx;
+			text-align: center;
+			color: #fff;
+			cursor: pointer;
+			" @click="closeBanner">
+				×
+			</view>
 
 
-						<!-- Top Text -->
-						<view style="
-					font-size: 28rpx;
-					color: #fff;
-					line-height: 1.4;
-					display: flex;
-					justify-content: flex-start;
-					margin: 0;
-					padding: 0;
-				">
+			<!-- Top Text -->
+			<view style="
+		font-size: 28rpx;
+		color: #fff;
+		line-height: 1.4;
+		display: flex;
+		justify-content: flex-start;
+		margin: 0;
+		padding: 0;
+	">
 				<view style="display: flex; flex-direction: column; line-height: 2; padding: 0; margin: 0;width: 100%;">
 					<view style="margin: 0; padding: 0;text-align: center;">
 						<!-- <text style="color:#ffac1c;font-size: 15px !important;">{{ $t('jogos.text35') }}</text> -->
@@ -70,13 +70,13 @@
 			<!-- Action Buttons (no margin above) -->
 			<view style="
 		display: flex;
-				justify-content: center;
-				align-items: center;
-				gap: 20rpx;
-				flex-wrap: wrap;
-				margin: 0;
-				padding-top: 10rpx;
-			">
+		justify-content: center;
+		align-items: center;
+		gap: 20rpx;
+		flex-wrap: wrap;
+		margin: 0;
+		padding-top: 10rpx;
+	">
 				<!-- Android Button -->
 				<view style="position: relative;">
 					<a @click="anzhuo" style="
@@ -471,7 +471,7 @@
 		},
 		data() {
 			return {
-				showSplash: true,
+				 showSplash: true,
 				isAppBannerVisible: true,
 				navItemStatus: 0, //导航栏目索引
 				loginNavInfo: [{
@@ -1448,32 +1448,33 @@
 				this.$modal.msg("PLO开通中...")
 			}
 		},
-    mounted() {
-      const fullUrl = window.location.href;
+		mounted() {
+			     const urlParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
+			        const isApp = urlParams.get('isApp');
+			    
+			        // Skip splash if ?isApp=1
+			        if (isApp === '1') {
+			          this.showSplash = false;
+			          return;
+			        }
+			    
+			        // Check sessionStorage for splash screen
+			        const splashShown = sessionStorage.getItem('splashShown');
+			        if (splashShown) {
+			          this.showSplash = false;
+			        } else {
+			          setTimeout(() => {
+			            this.showSplash = false;
+			            sessionStorage.setItem('splashShown', 'true');
+			          }, 5000);
+			        }
+			this.checkAppUrl();
 
-      if (fullUrl.includes('#/?isApp=1')) {
-        this.isAppBannerVisible = false;
-        this.showSplash = false;
-        return;  // Stop here for app mode
-      }
-      //
-      if (!this.$isLogin()) {
-        this.closeBanner();
-      }
-
-      const splashShown = localStorage.getItem('splashShown');
-      if (splashShown) {
-        this.showSplash = false;
-      } else {
-        setTimeout(() => {
-          this.showSplash = false;
-          localStorage.setItem('splashShown', 'true');
-        }, 1000);
-      }
-
-      this.checkAppUrl();
-    },
-    // watch: {
+			// setTimeout(() => {
+			// this.closeBanner();
+			// }, 5000);
+		},
+		// watch: {
 		// 	'keyword'() {
 		// 		this.searchGameList = []
 		// 		this.total = 0
