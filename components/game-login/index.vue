@@ -420,7 +420,44 @@
 		},
 
 		methods: {
-
+			// waitForMainContentToLoad() {
+			//   return new Promise((resolve) => {
+			//     this.$nextTick(() => {
+			//       const mainContent = this.$el.querySelector('.main-content');
+			//       if (!mainContent) return resolve();
+					
+			//       const images = mainContent.querySelectorAll('img');
+			//       const total = images.length;
+					
+			//       if (total === 0) {
+			//         console.log('✅ 100% - No images to load');
+			//         return resolve();
+			//       }
+					
+			//       let loadedCount = 0;
+					
+			//       const updateProgress = () => {
+			//         loadedCount++;
+			//         const percent = Math.round((loadedCount / total) * 100);
+			//         console.log(`🔄 Loading... ${percent}%`);
+					
+			//         if (loadedCount === total) {
+			//           console.log('✅ All images loaded - 100%');
+			//           resolve();
+			//         }
+			//       };
+					
+			//       images.forEach((img) => {
+			//         if (img.complete) {
+			//           updateProgress();
+			//         } else {
+			//           img.addEventListener('load', updateProgress);
+			//           img.addEventListener('error', updateProgress); // still count as loaded
+			//         }
+			//       });
+			//     });
+			//   });
+			// },
 			toggleRemember(e) {
 				this.remember = e
 			},
@@ -552,6 +589,7 @@
 								password: _this.loginForm.password
 							})
 							if (code == 200) {
+								alert(1);
 								_this.$store.dispatch('GetInfo')
 								_this.$store.dispatch('setLoginPopup', false)
 								// 2. 构造只含非空参数的 query 对象
@@ -568,11 +606,13 @@
 
 								  // 3. 小延迟后再跳转
 								  this.$dDelay(100).then(() => {
+									 
 									// 如果 query 里没东西，也会正常跳转，只是不带参数
 									this.$router.push({
 									  path: '/pages/jogos/index',
 									  query
 									});
+									
 								  });
 								// window.location.reload()
 							}
@@ -586,16 +626,23 @@
 
 			},
 			async userLogin(params) {
-				let {
-					data,
-					code
-				} = await this.$store.dispatch('Login', params)
-				if (code == 200) {
-					this.$modal.msg(this.$t('msg.text3'))
-					this.$store.dispatch('GetInfo')
-					this.$store.dispatch('setLoginPopup', false)
-					this.$setTemporizador()
-				}
+			  let { data, code } = await this.$store.dispatch('Login', params);
+			
+			  if (code == 200) {
+			    this.$modal.msg(this.$t('msg.text3'));
+			    await this.$store.dispatch('GetInfo');
+				
+			    // this.$store.dispatch('setLoginPopup', false);
+			    // this.$setTemporizador();
+				
+			    // Use nextTick to wait for Vue updates before the delay
+			    this.$nextTick(() => {
+			      setTimeout(() => {
+			        console.log("OK"); // ✅ Check console
+			        window.location.reload();
+			      }, 500);
+			    });
+			  }
 			},
 
 			codeChange(val) {
@@ -631,6 +678,7 @@
 					data
 				} = await forgotPassword(this.retrieveForm)
 				if (code == 200) {
+					// alert(1);
 					// this.$modal.msg(this.$t('jogos.title5'))
 					this.$dDelay(1000).then(() => {
 						this.loginNavIndex = 1

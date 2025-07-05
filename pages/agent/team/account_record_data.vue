@@ -1,13 +1,143 @@
+<!--<template>-->
+<!--  <view class="account-record" @click="closeAllDropdowns">-->
+<!--    &lt;!&ndash; Header &ndash;&gt;-->
+<!--    <view class="navHeader">-->
+<!--      <u-navbar leftText="Back" bgColor="black" :height="50" :safeAreaInsetTop="false" @leftClick="goBack">-->
+<!--        <template #left>-->
+<!--          <u-icon name="arrow-left" color="#be984c" size="20" />-->
+<!--        </template>-->
+<!--        <template #center>-->
+<!--          <text class="title">{{ $t('team.text90') }}</text>-->
+<!--        </template>-->
+<!--      </u-navbar>-->
+<!--    </view>-->
+
+<!--    <view style="height: 80rpx" />-->
+
+<!--    &lt;!&ndash; Filter Bar &ndash;&gt;-->
+<!--    <view class="filter-bar">-->
+<!--      <view class="filter-btn" style="flex-basis: 20%;" @tap.stop="toggleTypeDropdown">-->
+<!--        <text>{{ selectedTypeLabel }}</text>-->
+<!--        <u-icon name="arrow-down" size="14" color="#666" style="margin-left: 8rpx;" />-->
+<!--      </view>-->
+
+<!--      <view class="filter-btn" style="flex-basis: 45%;" @tap.stop="toggleDateDropdown">-->
+<!--        <text>{{ selectedDateTypeName }}</text>-->
+<!--        <u-icon :name="showDateOptions ? 'arrow-up' : 'arrow-down'" size="14" color="#666" style="margin-left: 8rpx;" />-->
+<!--      </view>-->
+
+<!--      <u-input-->
+<!--        v-model="filters.username"-->
+<!--        placeholder="Username"-->
+<!--        shape="circle"-->
+<!--        size="mini"-->
+<!--        clearable-->
+<!--        class="search-input"-->
+<!--        style="flex-basis: 35%;"-->
+<!--        @tap.stop-->
+<!--      />-->
+<!--    </view>-->
+
+<!--    &lt;!&ndash; Type Dropdown Sheet &ndash;&gt;-->
+<!--    <view v-if="showTypeSelect" class="bottom-sheet" @tap.self="closeAllDropdowns">-->
+<!--      <view class="sheet-content">-->
+<!--        <scroll-view scroll-y class="sheet-scroll">-->
+<!--          <view-->
+<!--            v-for="item in selectOptions"-->
+<!--            :key="item.value"-->
+<!--            class="sheet-item"-->
+<!--            :class="{ active: item.value === filters.selectType }"-->
+<!--            @tap.stop="selectType(item)"-->
+<!--          >-->
+<!--            {{ item.label }}-->
+<!--          </view>-->
+<!--        </scroll-view>-->
+<!--      </view>-->
+<!--    </view>-->
+
+<!--    &lt;!&ndash; Date Dropdown &ndash;&gt;-->
+<!--    <view v-if="showDateOptions" class="date-options" @tap.self="closeAllDropdowns">-->
+<!--      <view-->
+<!--        v-for="item in dateTypeOptions"-->
+<!--        :key="item.key"-->
+<!--        class="date-option"-->
+<!--        :class="{ active: filters.date_type === item.key }"-->
+<!--        @tap.stop="onDateTypeClick(item)"-->
+<!--      >-->
+<!--        {{ item.name }}-->
+<!--      </view>-->
+<!--      <view class="date-option" @tap.stop="openCalendar">-->
+<!--        📅 {{ filters.startTime || 'Start' }} - {{ filters.endTime || 'End' }}-->
+<!--      </view>-->
+<!--    </view>-->
+
+<!--    &lt;!&ndash; Record List &ndash;&gt;-->
+<!--    <scroll-view-->
+<!--      scroll-y-->
+<!--      class="record-list"-->
+<!--      :style="{height: 'calc(100vh - 200rpx)'}"-->
+<!--      @scrolltolower="onScrollToLower"-->
+<!--    >-->
+<!--      <view v-if="records.length">-->
+<!--        <view class="record-card" v-for="item in records" :key="item.id">-->
+<!--          <view class="card-header">-->
+<!--            <u-icon name="order" color="#19c2a6" size="22" />-->
+<!--            <text class="type-title">{{ formatMemo(item.memo) }}</text>-->
+<!--            <text class="date">{{ formatTime(item.createtime) }}</text>-->
+<!--          </view>-->
+<!--          <view class="card-body">-->
+<!--            <view class="row">-->
+<!--              <text class="label">Username：</text>-->
+<!--              <text class="value">{{ item.username }}</text>-->
+<!--            </view>-->
+<!--            &lt;!&ndash; <view class="row">-->
+<!--              <text class="label">订单编号：</text>-->
+<!--              <text class="value">{{ item.order_no || '' }}</text>-->
+<!--              <text class="platform">{{ item.platform || '' }}</text>-->
+<!--            </view> &ndash;&gt;-->
+<!--          </view>-->
+<!--          <view class="card-footer">-->
+<!--            <view class="footer-col">-->
+<!--              <text class="footer-label">Balance</text>-->
+<!--              <text class="footer-value">{{ item.after*1 || '0.00' }}</text>-->
+<!--            </view>-->
+<!--            <view class="footer-col">-->
+<!--              <text class="footer-label">Transaction Amounts</text>-->
+<!--              <text class="footer-value" :class="item.money > 0 ? 'amount-in' : 'amount-out'">-->
+<!--                {{ item.money > 0 ? '+' : '' }}{{ item.money*1 }}-->
+<!--              </text>-->
+<!--            </view>-->
+<!--          </view>-->
+<!--        </view>-->
+<!--      </view>-->
+<!--      <view v-else class="empty-box">-->
+<!--        <image src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" style="width: 120rpx; height: 120rpx;" />-->
+<!--        <view class="empty-text">No data</view>-->
+<!--      </view>-->
+<!--    </scroll-view>-->
+
+<!--    &lt;!&ndash; Calendar &ndash;&gt;-->
+<!--	<u-calendar-->
+<!--	  :show="rqShow"-->
+<!--	  mode="range"-->
+<!--	  :min-date="minDate"-->
+<!--	  :max-date="maxDate"-->
+<!--	  @confirm="handleConfirm"-->
+<!--	  @close="rqShow = false"-->
+<!--	/>-->
+<!--  </view>-->
+<!--</template>-->
+
 <template>
   <view class="account-record" @click="closeAllDropdowns">
     <!-- Header -->
     <view class="navHeader">
-      <u-navbar leftText="Back" bgColor="black" :height="50" :safeAreaInsetTop="false" @leftClick="goBack">
+      <u-navbar :leftText="$t('team.text95')" bgColor="black" :height="50" :safeAreaInsetTop="false" @leftClick="goBack">
         <template #left>
           <u-icon name="arrow-left" color="#be984c" size="20" />
         </template>
         <template #center>
-          <text class="title">{{ $t('team.text90') }}</text>
+          <text class="title">{{ $t('team.text96') }}</text>
         </template>
       </u-navbar>
     </view>
@@ -38,7 +168,7 @@
       />
     </view>
 
-    <!-- Type Dropdown Sheet -->
+    <!-- Type Dropdown -->
     <view v-if="showTypeSelect" class="bottom-sheet" @tap.self="closeAllDropdowns">
       <view class="sheet-content">
         <scroll-view scroll-y class="sheet-scroll">
@@ -67,22 +197,14 @@
         {{ item.name }}
       </view>
       <view class="date-option" @tap.stop="openCalendar">
-        📅 {{ filters.startTime || 'Start' }} - {{ filters.endTime || 'End' }}
+        📅 {{ filters.startTime || $t('team.text98') }} - {{ filters.endTime || $t('team.text99') }}
       </view>
     </view>
 
     <!-- Record List -->
-    <scroll-view
-        scroll-y
-        class="record-list"
-        :style="{height: 'calc(100vh - 200rpx)'}"
-        @scrolltolower="onScrollToLower"
-    >
+    <scroll-view scroll-y class="record-list" :style="{height: 'calc(100vh - 200rpx)'}" @scrolltolower="onScrollToLower">
       <view v-if="records.length">
         <view class="record-card" v-for="item in records" :key="item.id">
-<!--          <view v-for="(val, key) in item" :key="key">-->
-<!--            <text>{{ key }}: {{ val }}</text>-->
-<!--          </view>-->
           <view class="card-header">
             <u-icon name="order" color="#19c2a6" size="22" />
             <text class="type-title">{{ formatMemo(item.memo) }}</text>
@@ -90,14 +212,9 @@
           </view>
           <view class="card-body">
             <view class="row">
-              <text class="label">{{ $t('team.text100') }}：</text>
+              <text class="label">{{ $t('team.text100') }}</text>
               <text class="value">{{ item.username }}</text>
             </view>
-<!--          <view class="row">-->
-<!--              <text class="label">订单编号：</text>-->
-<!--              <text class="value">{{ item.order_no || '' }}</text>-->
-<!--              <text class="platform">{{ item.platform || '' }}</text>-->
-<!--            </view>-->
           </view>
           <view class="card-footer">
             <view class="footer-col">
@@ -131,9 +248,7 @@
   </view>
 </template>
 <script>
-import {
-  AccountRecord
-} from '@/api/jogos.js'
+import { AccountRecord } from '@/api/jogos.js';
 export default {
   data() {
     const today = new Date();
@@ -170,119 +285,75 @@ export default {
       page: 1,
       limit: 20,
       loading: false,
-      finished: false,
+      finished: false
     }
   },
   computed: {
-    // ✅ 3 months ago
     minDate() {
       const d = new Date();
       d.setMonth(d.getMonth() - 2);
       return d.toISOString().split('T')[0];
     },
-
-    // ✅ Today
     maxDate() {
       const d = new Date();
       return d.toISOString().split('T')[0];
     },
-
     selectedTypeLabel() {
-      return this.selectOptions.find(i => i.value === this.filters.selectType)?.label || 'All';
+      return this.selectOptions.find(i => i.value === this.filters.selectType)?.label || this.$t('team.text108');
     },
-
     selectedDateTypeName() {
-      const labelMap = {
+      const map = {
         today: this.$t('team.text104'),
-        yesterday: this.$t('team.text105') ,
-        last7days: this.$t('team.text106') ,
-        month: this.$t('team.text107') ,
-        custom: `${this.filters.startTime || 'Start'} - ${this.filters.endTime || 'End'}`
+        yesterday: this.$t('team.text105'),
+        last7days: this.$t('team.text106'),
+        month: this.$t('team.text107'),
+        custom: `${this.filters.startTime || this.$t('team.text98')} - ${this.filters.endTime || this.$t('team.text99')}`
       };
-      return labelMap[this.filters.date_type] || 'Custom';
-    },
-
-    currentDefaultDate() {
-      const today = new Date().toISOString().split('T')[0];
-      return [this.filters.startTime || today, this.filters.endTime || today];
-    },
-
-    filteredData() {
-      const { username, selectType, startTime, endTime } = this.filters;
-      return this.fakeData
-          .filter(item => {
-            const matchUser = !username || item.username.includes(username);
-            const matchType = selectType === 0 || item.type === selectType;
-            const matchDate = (!startTime || !endTime) || (item.date >= startTime && item.date <= endTime);
-            return matchUser && matchType && matchDate;
-          })
-          .map(item => ({
-            ...item,
-            typeLabel: this.selectOptions.find(opt => opt.value === item.type)?.label || 'Other'
-          }));
+      return map[this.filters.date_type] || 'Custom';
     }
   },
-  onLoad(){
+  onLoad() {
     this.page = 1;
     this.finished = false;
     this.AccountRecord(false);
   },
   methods: {
-
-
     async AccountRecord(isAppend = false) {
       this.loading = true;
-      const params = {
-        ...this.filters,
-        page: this.page,
-        limit: this.limit
-      };
-
-      let { code, data } = await AccountRecord(params);
-
-      // ✅ Console log the raw response for debugging
-      console.log('API Params:', params);
-      console.log('API Response:', data);
-
+      const params = { ...this.filters, page: this.page, limit: this.limit };
+      const { code, data } = await AccountRecord(params);
       if (code === 200) {
-        const processedData = (data.list || []).map(item => ({
+        const processed = (data.list || []).map(item => ({
           ...item,
-          typeLabel: this.selectOptions.find(opt => opt.value === item.type)?.label || 'Other'
+          typeLabel: this.selectOptions.find(opt => opt.value === item.type)?.label || this.$t('team.text114')
         }));
-
-        if (isAppend) {
-          this.records = this.records.concat(processedData);
-        } else {
-          this.records = processedData;
-        }
-
+        this.records = isAppend ? this.records.concat(processed) : processed;
         this.total = data.total || 0;
         this.finished = this.records.length >= this.total;
       }
       this.loading = false;
     },
     toggleTypeDropdown() {
-      this.showTypeSelect = !this.showTypeSelect
-      this.showDateOptions = false
+      this.showTypeSelect = !this.showTypeSelect;
+      this.showDateOptions = false;
     },
     toggleDateDropdown() {
-      this.showDateOptions = !this.showDateOptions
-      this.showTypeSelect = false
+      this.showDateOptions = !this.showDateOptions;
+      this.showTypeSelect = false;
     },
     closeAllDropdowns() {
-      this.showTypeSelect = false
-      this.showDateOptions = false
+      this.showTypeSelect = false;
+      this.showDateOptions = false;
     },
     selectType(item) {
-      this.filters.selectType = item.value
-      this.closeAllDropdowns()
+      this.filters.selectType = item.value;
+      this.closeAllDropdowns();
       this.AccountRecord();
     },
     openCalendar() {
-      this.rqShow = true
+      this.rqShow = true;
     },
     handleConfirm(val) {
-      // 过滤掉 __ob__ 这种非日期属性
       const arr = Array.isArray(val) ? val.filter(v => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v)) : [];
       const start = arr[0];
       const end = arr[arr.length - 1] || start;
@@ -294,42 +365,24 @@ export default {
       this.showDateOptions = false;
       this.AccountRecord();
     },
-
     onDateTypeClick(item) {
-      const today = new Date()
-      const format = d => d.toISOString().split('T')[0]
-      let start = '', end = ''
+      const today = new Date();
+      const format = d => d.toISOString().split('T')[0];
+      let start = '', end = '';
       switch (item.key) {
-        case 'today':
-          start = end = format(today)
-          break
-        case 'yesterday':
-          const y = new Date(today)
-          y.setDate(y.getDate() - 1)
-          start = end = format(y)
-          break
-        case 'last7days':
-          const s7 = new Date(today)
-          s7.setDate(s7.getDate() - 6)
-          start = format(s7)
-          end = format(today)
-          break
-        case 'month':
-          const f = new Date(today.getFullYear(), today.getMonth(), 1)
-          start = format(f)
-          end = format(today)
-          break
+        case 'today': start = end = format(today); break;
+        case 'yesterday': const y = new Date(today); y.setDate(y.getDate() - 1); start = end = format(y); break;
+        case 'last7days': const s7 = new Date(today); s7.setDate(s7.getDate() - 6); start = format(s7); end = format(today); break;
+        case 'month': const f = new Date(today.getFullYear(), today.getMonth(), 1); start = format(f); end = format(today); break;
       }
-      this.filters.startTime = start + ' 00:00:00'
-      this.filters.endTime = end + ' 23:59:59'
-      this.filters.date_type = item.key
-      this.closeAllDropdowns()
+      this.filters.startTime = start + ' 00:00:00';
+      this.filters.endTime = end + ' 23:59:59';
+      this.filters.date_type = item.key;
+      this.closeAllDropdowns();
       this.AccountRecord();
     },
     goBack() {
-      uni.navigateTo({
-        url: '/pages/userinfo/index'
-      })
+      uni.navigateTo({ url: '/pages/userinfo/index' });
     },
     onScrollToLower() {
       if (this.loading || this.finished) return;
@@ -344,16 +397,11 @@ export default {
     },
     formatMemo(memo) {
       switch (memo) {
-        case '充值审核通过':
-          return 'Deposit Success';
-        case '发起提现':
-          return 'Withdraw';
-        case '提现驳回':
-          return 'Withdraw Rejected';
-        case '游戏下注扣款':
-          return 'Betting';
-        default:
-          return memo;
+        case '充值审核通过': return this.$t('team.text109');
+        case '发起提现': return this.$t('team.text110');
+        case '提现驳回': return this.$t('team.text111');
+        case '游戏下注扣款': return this.$t('team.text112');
+        default: return memo;
       }
     }
   },

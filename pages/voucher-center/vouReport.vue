@@ -29,8 +29,8 @@
 			<view class="tabPane-tips mc-filter-container voucher-report-tab">
 				<view style="width: 100%;">
 				<view class="am-flexbox am-flexbox-align-middle" style="flex-wrap: nowrap; overflow: hidden;">
-				  <span 
-				    class="tabPane-span filter-tabPane-btn" 
+				  <span
+				    class="tabPane-span filter-tabPane-btn"
 				    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 30%;"
 				    @tap="allCz"
 				  >
@@ -38,14 +38,14 @@
 				    <text v-if="type == 0">{{$t('voucher.text42')}}</text>
 				    <!-- 其他条件省略 -->
 				  </span>
-				  <span 
+				  <span
 				    class="tabPane-span filter-tabPane-btn"
 				    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 30%;"
 				    @tap="allType"
 				  >
 				    {{ $t('voucher.text30') }}
 				  </span>
-				  <span 
+				  <span
 				    class="tabPane-span filter-tabPane-btn"
 				    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 30%;"
 				    @tap="allTime"
@@ -136,8 +136,18 @@
 		</view>
 		<u-picker :show="czShow" :columns="columns" @confirm="czConfirm" @cancel="czClose" :confirmText="$t('account.text41')" :cancelText="$t('account.text42')"></u-picker>
 		<u-picker :show="typeShow" :columns="typeColumns" @confirm="typeConfirm" @cancel="typeClose" :confirmText="$t('account.text41')" :cancelText="$t('account.text42')"></u-picker>
-		<u-calendar :show="timeShow" :title="$t('tzjl.text10')" mode="range" @confirm="confirm" @close="close" :confirmText="$t('account.text41')" :confirmDisabledText="$t('account.text41')"></u-calendar>
-
+<!--		<u-calendar :show="timeShow" :title="$t('tzjl.text10')" mode="range" @confirm="confirm" @close="close" :confirmText="$t('account.text41')" :confirmDisabledText="$t('account.text41')"></u-calendar>-->
+    <u-calendar
+        :show="timeShow"
+        :title="$t('tzjl.text10')"
+        mode="range"
+        @confirm="confirm"
+        @close="close"
+        :confirmText="$t('account.text41')"
+        :confirmDisabledText="$t('account.text41')"
+        :minDate="minDate"
+        :maxDate="maxDate"
+    />
 		<view class="footer">
 			<u-tabbar :fixed="true" :placeholder="true" :safeAreaInsetBottom="true">
 				<view style="padding: 11.04px 0;display: flex;justify-content: space-around; width: 100%;">
@@ -173,6 +183,8 @@
 				czShow: false,
 				typeShow: false,
 				timeShow: false,
+        minDate: '',
+        maxDate: '',
 				mode: 'range',
 				page: 1,
 				limit: 300,
@@ -203,7 +215,15 @@
 			this.orderLogInfo()
 		},
 		mounted() {
+      const today = new Date();
+      const maxDate = today.toISOString().split('T')[0];
 
+      const twoMonthsAgo = new Date();
+      twoMonthsAgo.setMonth(today.getMonth() - 2);
+      const minDate = twoMonthsAgo.toISOString().split('T')[0];
+
+      this.maxDate = maxDate;
+      this.minDate = minDate;
 		},
 		beforeDestroy() {},
 		methods: {
@@ -239,7 +259,7 @@
 				this.czShow = true
 			},
 			czConfirm(e) {
-				
+
 				this.type = e.indexs[0] //全部类型赋值
 				this.orderLogInfo()
 				this.czShow = false

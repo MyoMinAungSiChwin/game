@@ -362,11 +362,11 @@
 						text: this.$t('login.text21'),
 						type: 14
 					},
-					{
-						icon: '/static/images/grzx/new/exit.png',
-						text: this.$t('userinfo.text50'),
-						type: 12
-					},
+					// {
+					// 	icon: '/static/images/grzx/new/exit.png',
+					// 	text: this.$t('userinfo.text50'),
+					// 	type: 12
+					// },
 
 				],
 				agentItem: [{
