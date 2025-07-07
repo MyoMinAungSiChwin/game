@@ -411,12 +411,12 @@
 						url: '/pages/agent/team/account_record',
 						type: 1
 					},
-					// {
-					// 	icon: '/static/images/grzx/new/yqjl.png',
-					// 	text: this.$t('team.text95'),
-					// 	url: '/pages/agent/team/team_betting',
-					// 	type: 1
-					// },
+					{
+						icon: '/static/images/grzx/new/yqjl.png',
+						text: this.$t('team.text95'),
+						url: '/pages/agent/team/team_betting',
+						type: 1
+					},
 				],
 
 				childList: [{

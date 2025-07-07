@@ -15,7 +15,7 @@
 		</view>
 		<view>
 			<!-- 自定义tabs组件 -->
-		<!-- 	<custom-tabs :tabsList="tabs" @change="handleTabChange" :isShow="true" /> -->
+			<custom-tabs :tabsList="tabs" @change="handleTabChange" :isShow="true" />
 			<!-- 内容区域 -->
 			<view class="content">
 				<view>
