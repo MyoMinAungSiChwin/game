@@ -87,17 +87,25 @@
             <u-icon name="order" color="#19c2a6" size="22" />
             <text class="type-title">{{ formatMemo(item.memo) }}</text>
             <text class="date">{{ formatTime(item.createtime) }}</text>
+			
           </view>
+		  
+
           <view class="card-body">
             <view class="row">
               <text class="label">{{ $t('team.text100') }}：</text>
               <text class="value">{{ item.username }}</text>
             </view>
-<!--          <view class="row">-->
-<!--              <text class="label">订单编号：</text>-->
-<!--              <text class="value">{{ item.order_no || '' }}</text>-->
-<!--              <text class="platform">{{ item.platform || '' }}</text>-->
-<!--            </view>-->
+          <view class="row">
+			<div style="width: 90%;">
+				<text class="label">订单编号：</text> <br>
+				 <text class="value">{{ item.orderNo || '' }}</text>
+			</div>
+            <div style="width: 10%;">
+				<text style="text-align: right;"> PP  </text>
+			</div>
+             
+          </view>
           </view>
           <view class="card-footer">
             <view class="footer-col">
