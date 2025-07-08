@@ -20,7 +20,7 @@
 		    <!-- Right slot -->
 		    <template v-slot:right>
 		      <view class="nav-actions">
-		        <u-button class="exclude-btn" size="mini" type="primary" shape="circle">
+		        <u-button class="exclude-btn" size="mini" type="primary" @click="goToTurnOver" shape="circle">
 		          <text style="font-size: 20rpx; line-height: 1.2;">
 					  {{$t('tzsCustomize.title8')}}
 		          </text>
@@ -145,7 +145,7 @@
 				  </view>
 				  <view class="footer-row">
 				    <view class="footer-col">
-				      <text class="footer-label">{{$t('tzsCustomize.title11')}}</text>
+				      <text class="footer-label">{{$t('tzsCustomize.title23')}}</text>
 				      <text class="footer-value green">112</text>
 				    </view>
 				    <view class="footer-col">
@@ -167,7 +167,7 @@
 				
 				   <!-- Close Button -->
 				   <view class="close-button" @click="closeTheDropDownSelect">
-				     <text>Sorting</text>
+				     <text>{{$t('tzsCustomize.title32')}}</text>
 				     <text>×</text>
 				   </view>
 		      <view
@@ -244,13 +244,13 @@ export default {
 				{ key: 'month', name: this.$t('team.text56') }
 			],
 			selectOptions: [
-			  { label: this.$t('team.text108'), value: 0 },
-			  { label: this.$t('team.text109'), value: 1 },
-			  { label: this.$t('team.text110'), value: 2 },
-			  { label: this.$t('team.text111'), value: 3 },
-			  { label: this.$t('team.text112'), value: 4 },
-			  { label: this.$t('team.text113'), value: 5 },
-			  { label: this.$t('team.text114'), value: 6 }
+			  { label: this.$t('tzsCustomize.title31'), value: 0 },
+			  { label: this.$t('tzsCustomize.title25'), value: 1 },
+			  { label: this.$t('tzsCustomize.title26'), value: 2 },
+			  { label: this.$t('tzsCustomize.title27'), value: 3 },
+			  { label: this.$t('tzsCustomize.title28'), value: 4 },
+			  { label: this.$t('tzsCustomize.title29'), value: 5 },
+			  { label: this.$t('tzsCustomize.title30'), value: 6 }
 			],
 			filters: {
 				username: '',
@@ -276,6 +276,11 @@ export default {
 		this.chooseTimed();
 	},
 	methods: {
+		goToTurnOver(){
+			 uni.navigateTo({
+			      url: '/pages/agent/team/turnover_list'
+			    });
+		},
 		selectVendor(vendor) {
 			this.selectedVendor = vendor;
 			this.showVendorModal = false;

@@ -40,7 +40,7 @@
 					<u-icon :name="!showVendorModal ? 'arrow-down' : 'arrow-up'" size="15"></u-icon>
 				</view>
 				<view style="width:85%;">
-					<u-input v-model="filters.username" clearable @clear="clearEnter" :placeholder="$t('team.text6')" prefixIcon="search" prefixIconStyle="font-size: 22px;color: #909399">
+					<u-input v-model="filters.username" clearable @clear="clearEnter" :placeholder="$t('tzsCustomize.title24')" prefixIcon="search" prefixIconStyle="font-size: 22px;color: #909399">
 						<template slot="suffix">
 							<u-button size="mini" @tap="handleSearchEnter">search</u-button>
 						</template>
