@@ -644,5 +644,13 @@ export default {
 		title12:"Valid Bet",
 		title13:"Win / Loss",
 		title14:"Records",
+		title15:"Game Type",
+		title16:"Game Vendor ",
+		title17:"Exclusion Percentage",
+		title18:"Reminder",
+		title19:" Games not listed in the exclusion list will count 100% toward valid bets.",
+		title20:" The exclusion percentage indicates the percentage of the bet amount that does not count toward valid betting.",
+		title21:"Example",
+		title22:"If Game A has an exclusion percentage of 100%, betting on Game A will not generate any valid betting amount. If Game B has an exclusion percentage of 40%, betting 100 on Game B will result in:  100 - (100 × 40%) = 60 valid betting amount.",
 	}
 }

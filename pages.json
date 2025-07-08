@@ -428,6 +428,13 @@
 				"navigationStyle": "custom"
 			}
 		},{
+			"path": "pages/agent/team/turnover_list",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},{
 			"path": "pages/splash/splash",
 			"style": {
 				"navigationBarTitleText": "BlackDiamond",
