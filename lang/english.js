@@ -637,6 +637,12 @@ export default {
 		title5:"Gift amount:",
 		title6:"Modify remarks",
 		title7:'Total Win/Loss',
-		
+		title8:"Exclusion Turnover list",
+		title9:"Types",
+		title10:"Vendors",
+		title11:"rounds",
+		title12:"Valid Bet",
+		title13:"Win / Loss",
+		title14:"Records",
 	}
 }

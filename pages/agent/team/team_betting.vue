@@ -22,7 +22,7 @@
 		      <view class="nav-actions">
 		        <u-button class="exclude-btn" size="mini" type="primary" shape="circle">
 		          <text style="font-size: 20rpx; line-height: 1.2;">
-		            Exclusion<br />turnover list
+					  {{$t('tzsCustomize.title8')}}
 		          </text>
 		        </u-button>
 		        <u-icon @click="showDataClickFunction" name="list" color="#be984c" size="20" style="margin-left: 15rpx;" />
@@ -110,18 +110,18 @@
 									<view class="row">
 										<view class="item">
 											<text class="label">Fortune Dragon</text>
-											<text class="value">411 rounds </text>
+											<text class="value">411 {{$t('tzsCustomize.title11')}} </text>
 										</view>
 									</view>
 									<view class="row">
 										<view class="item">
-											<text class="label">Valid Bet</text>
+											<text class="label">{{$t('tzsCustomize.title12')}}</text>
 											<text class="value">298,450</text>
 										</view>
 									</view>
 									<view class="row">
 										<view class="item">
-											<text class="label">Win / Loss</text>
+											<text class="label">{{$t('tzsCustomize.title13')}}</text>
 											<text class="value">74,000</text>
 										</view>
 									</view>
@@ -135,21 +135,21 @@
 				<view class="sticky-footer">
 				  <view class="footer-row">
 				    <view class="footer-col">
-				      <text class="footer-label">Records</text>
+				      <text class="footer-label">{{$t('tzsCustomize.title14')}}</text>
 				      <text class="footer-value green">9</text>
 				    </view>
 				    <view class="footer-col">
-				      <text class="footer-label">Valid bet</text>
+				      <text class="footer-label">{{$t('tzsCustomize.title12')}}</text>
 				      <text class="footer-value green">600,000.00</text>
 				    </view>
 				  </view>
 				  <view class="footer-row">
 				    <view class="footer-col">
-				      <text class="footer-label">Total rounds</text>
+				      <text class="footer-label">{{$t('tzsCustomize.title11')}}</text>
 				      <text class="footer-value green">112</text>
 				    </view>
 				    <view class="footer-col">
-				      <text class="footer-label">Win/Loss</text>
+				      <text class="footer-label">{{$t('tzsCustomize.title13')}}</text>
 				      <text class="footer-value red">-12,324.00</text>
 				    </view>
 				  </view>
@@ -164,10 +164,12 @@
 		<view v-if="showTypeSelect" class="bottom-sheet" @tap.self="closeAllDropdowns" >
 		  <view class="sheet-content">
 		    <scroll-view scroll-y class="sheet-scroll" >
-				    <!-- Close Button -->
-				    <view class="close-button" @click="closeTheDropDownSelect">
-				      ×
-				    </view>
+				
+				   <!-- Close Button -->
+				   <view class="close-button" @click="closeTheDropDownSelect">
+				     <text>Sorting</text>
+				     <text>×</text>
+				   </view>
 		      <view
 		          v-for="item in selectOptions"
 		          :key="item.value"
@@ -230,8 +232,8 @@ export default {
 			showVendorModal: false,
 			currentTab: 0,
 			currentDateType: '',
-			selectedType: "Types",
-			selectedVendor: "Vendors",
+			selectedType:   this.$t('tzsCustomize.title9'),
+			selectedVendor:  this.$t('tzsCustomize.title10'),
 			showTypeSelect : false ,
 			tabs: [],
 			vendorList: ['All', 'JL', 'PG', 'PP', 'CQ9', 'SG', 'JDB', 'KA', 'AMBS', 'PS', 'AE', 'SW', 'YB', 'JK', 'BNG', 'EP', 'BT', 'KM', 'LCC', '365', 'AMB', 'GPI', 'WE', 'DG', 'SEX', 'TCG_SEA', 'TF', 'BTI', 'SBO', 'IA', 'BB', 'FB', 'UG2', 'SV3'],
@@ -312,6 +314,9 @@ export default {
 		  // if (this.showTypeModal) this.showTypeModal = false;
 		  // if (this.showVendorModal) this.showVendorModal = false;
 		  // if (this.showTypeSelect) this.showTypeSelect = false;
+		},
+		selectType(){
+			this.showTypeSelect = !this.showTypeSelect
 		},
 		dateTypeClick(item) {
 			this.filters.date_type = item.key;
@@ -559,14 +564,20 @@ page {
   color: #fff;
 }
 .close-button {
-  text-align: right;
-  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
   padding: 10px;
   color: #666;
+  border-bottom: 1px solid #eee;
 }
-.close-button:hover {
-  color: #000;
+
+.close-button text:last-child {
+  font-size: 24px;
+  font-weight: bold;
   cursor: pointer;
 }
+
 
 </style>

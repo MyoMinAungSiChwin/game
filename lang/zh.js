@@ -636,7 +636,13 @@ export default {
 		title5:"赠送金额：",
 		title6:"修改备注",
 		title7:'总输赢',
-
+		title8:"排除营业额名单",
+		title9:"类型",
+		title10:"供应商",
+		title11:"回合",
+		title12:"有效投注",
+		title13:"赢/输",
+		title14:"记录",
 	}
 
 }
