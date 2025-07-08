@@ -161,9 +161,13 @@
 
 		<global-notify />
 		<!-- Type Dropdown Sheet -->
-		<view v-if="showTypeSelect" class="bottom-sheet" @tap.self="closeAllDropdowns">
+		<view v-if="showTypeSelect" class="bottom-sheet" @tap.self="closeAllDropdowns" >
 		  <view class="sheet-content">
-		    <scroll-view scroll-y class="sheet-scroll">
+		    <scroll-view scroll-y class="sheet-scroll" >
+				    <!-- Close Button -->
+				    <view class="close-button" @click="closeTheDropDownSelect">
+				      ×
+				    </view>
 		      <view
 		          v-for="item in selectOptions"
 		          :key="item.value"
@@ -285,20 +289,29 @@ export default {
 		allSearch() {
 			this.showModal = !this.showModal;
 			if (this.showModal) this.showTypeModal = this.showVendorModal = false;
+			this.showTypeSelect = false;
 		},
 		allSearchType() {
 			this.showTypeModal = !this.showTypeModal;
 			if (this.showTypeModal) this.showModal = this.showVendorModal = false;
+			this.showTypeSelect = false;
 		},
 		allSearchVendor() {
 			this.showVendorModal = !this.showVendorModal;
 			if (this.showVendorModal) this.showModal = this.showTypeModal = false;
+			this.showTypeSelect = false;
 		},
 		showDataClickFunction(){
 			this.showTypeSelect = !this.showTypeSelect
 		},
+		closeTheDropDownSelect(){
+			this.showTypeSelect = !this.showTypeSelect
+		},
 		closeAllDropdowns() {
-		  // this.showTypeSelect = false
+		  // if (this.showModal) this.showModal = false;
+		  // if (this.showTypeModal) this.showTypeModal = false;
+		  // if (this.showVendorModal) this.showVendorModal = false;
+		  // if (this.showTypeSelect) this.showTypeSelect = false;
 		},
 		dateTypeClick(item) {
 			this.filters.date_type = item.key;
@@ -544,6 +557,16 @@ page {
 .sheet-item.active {
   background-color: #be984c;
   color: #fff;
+}
+.close-button {
+  text-align: right;
+  font-size: 24px;
+  padding: 10px;
+  color: #666;
+}
+.close-button:hover {
+  color: #000;
+  cursor: pointer;
 }
 
 </style>
