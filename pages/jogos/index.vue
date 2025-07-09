@@ -233,12 +233,7 @@
 
 
 						</view>
-						<!-- <view v-for="(a,b) in gameNavList[navItemStatus]['child']" :key="b"
-							:style="a.title == qiehuanIndex ? 'background-color: #cbbd9e; ' : ''" style=" display: flex; justify-content: center; align-items: center; width: 160rpx; margin-left: 20rpx; margin-bottom: 20rpx;
-						border: 1px solid #cbbd9e;
-						padding:20rpx;border-radius: 20rpx;" @tap="qieHan(a)">
-							<view>{{a.title}}</view>
-						</view> -->
+
 					</view>
 
 					<!--end 厂商 -->
@@ -271,19 +266,19 @@
 									</view>
 									<view v-if="$store.state.user.language === ''"
 										style="color: #fff; text-align: center; margin-top: 20rpx;">
-										{{ item.gameName_cn }}
+										{{ item.gameName_cn }} 
 									</view>
 									<view v-if="$store.state.user.language === 'zh'"
 										style="color: #fff; text-align: center; margin-top: 20rpx;">
-										{{ item.gameName_cn }}
+										{{ item.gameName_cn }} 
 									</view>
 									<view v-if="$store.state.user.language === 'english'"
 										style="color: #fff; text-align: center; margin-top: 20rpx;">
-										{{ item.gameName }}
+										{{ item.gameName }} 
 									</view>
 									<view v-if="$store.state.user.language == 'burmese'"
 										style="color: #fff; text-align: center; margin-top: 20rpx;">
-										{{ item.gameName_my }}
+										{{ item.gameName_my }} 
 									</view>
 								</view>
 							</view>
@@ -342,8 +337,7 @@
 								<view class="d_jl_top d_flex">
 								</view>
 								<view class="d_jl_list game_flex">
-									<view class="d_jl_list_item" v-for="(item, child) in gameList" :key="item.id"
-										@tap="enterGameBtn(item)">
+									<view class="d_jl_list_item" v-for="(item, child) in gameList"   @tap="item.is_wh !== 1 ? enterGameBtn(item) : maintaincePopUp()" @end>
 										<view :id="item.gameID" class="image-container">
 											<u--image radius="10rpx" :src="item.imageUrl" width="100%" height="300rpx">
 												<template v-slot:loading>
@@ -428,6 +422,18 @@
 				<game-tabbar :tabbarValue="0" />
 				<global-notify></global-notify>
 				<game-announcement :content="announcementData" />
+				<!-- Maintaince Mode -->
+				  <view class="maintenance-wrapper" v-if="showMaintenance">
+				    <view class="maintenance-box">
+				      <view class="maintenance-title">  {{ $t('tzsCustomize.title33') }} </view>
+				      <view class="maintenance-message">
+						 {{ $t('tzsCustomize.title34') }}
+				      </view>
+				      <view class="maintenance-btn" @click="closeMaintenance">
+				        OK
+				      </view>
+				    </view>
+				  </view>
 			</view>
 		</view>
 
@@ -471,6 +477,7 @@
 		},
 		data() {
 			return {
+				 showMaintenance: false,
 				showSplash: true,
 				isAppBannerVisible: true,
 				navItemStatus: 0, //导航栏目索引
@@ -597,6 +604,12 @@
 			this.saveState();
 		},
 		methods: {
+			  closeMaintenance() {
+			      this.showMaintenance = false;
+			    },
+			maintaincePopUp(){
+					alert("This is undermaintaince")
+			},
 			getUrlParam(param) {
 			  console.log("---------------------------")
 			  const options = uni.getLaunchOptionsSync();
@@ -1845,5 +1858,51 @@
 		height: 40rpx;
 		right: 20rpx;
 		top: 20rpx;
+	}
+	
+	
+	.maintenance-wrapper {
+	  position: fixed;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  z-index: 9999;
+	}
+	
+	.maintenance-box {
+	  width: 80%;
+	  background-color: #fff;
+	  border-radius: 20rpx;
+	  padding: 40rpx 30rpx;
+	  text-align: center;
+	  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.3);
+	}
+	
+	.maintenance-title {
+	  font-size: 36rpx;
+	  font-weight: bold;
+	  color: #333;
+	  margin-bottom: 20rpx;
+	}
+	
+	.maintenance-message {
+	  font-size: 28rpx;
+	  color: #666;
+	  margin-bottom: 30rpx;
+	  line-height: 40rpx;
+	}
+	
+	.maintenance-btn {
+	  background-color: #be984c;
+	  color: #fff;
+	  padding: 15rpx 0;
+	  border-radius: 10rpx;
+	  font-size: 30rpx;
+	  font-weight: bold;
 	}
 </style>

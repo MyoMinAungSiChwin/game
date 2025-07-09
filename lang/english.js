@@ -662,5 +662,7 @@ export default {
 		title30:"Total rounds-Descending",
 		title31:"Default",
 		title32:"Sorting",
+		title33:" Maintenance Mode",
+		title34:"   We are currently performing scheduled maintenance. Please check back later. Thank you for your patience!" ,
 	}
 }
