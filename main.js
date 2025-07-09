@@ -6,7 +6,7 @@
   const subdomain = arr[0];
 
   // 数据化的排除列表
-  const skipSubdomains = ['www', 'ceshi'];
+  const skipSubdomains = ['www', 'ceshi' , 'xince'];
 
   // 只有子域名不在排除列表且域名段数大于 2 时才重定向
   if (arr.length > 2 && !skipSubdomains.includes(subdomain)) {
