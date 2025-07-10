@@ -234,6 +234,22 @@
 		
 		},
 		{
+			"path": "pages/voucher-center/deposit",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
+			"path": "pages/voucher-center/withdraw",
+			"style": {
+				"navigationBarTitleText": "BlackDiamond",
+				"navigationStyle": "custom"
+			}
+		
+		},
+		{
 			"path": "pages/withdraw/index",
 			"style": {
 				"navigationBarTitleText": "BlackDiamond",
