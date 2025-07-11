@@ -1,24 +1,27 @@
 <template>
   <view class="voucher_center">
+    <!-- Navbar -->
     <view class="navHeader" style="margin-bottom:100rpx;">
       <u-navbar leftText="返回" bgColor="black" :height="50" :safeAreaInsetTop="false" @leftClick="leftClick">
         <view class="u-nav-slot" slot="left">
           <u-icon name="arrow-left" color="#be984c" size="20"></u-icon>
         </view>
         <view class="u-nav-slot" slot="center">
-          <text style="font-size: 35rpx; color: #be984c;">{{$t('tzsCustomize.title35')}}</text>
+          <text style="font-size: 35rpx; color: #be984c;">{{$t('tzsCustomize.title36')}}</text>
         </view>
         <view class="u-nav-slot" slot="right">
-          <view class="icon-container" @tap="goToWithdraw" style="margin-right: 10rpx;">
-            <u-icon name="minus-square-fill" color="#be984c" size="20"></u-icon>
+          <view class="icon-container" @tap="goToDepost" style="margin-right: 10rpx;">
+            <u-icon name="plus-square-fill" color="#be984c" size="20"></u-icon>
           </view>
         </view>
       </u-navbar>
     </view>
 
+    <!-- Tabs -->
     <view class="content" style="margin-top: 120rpx;">
       <u-tabs :list="list1" :scrollable="false" :lineWidth="120" @click="tabsClick"></u-tabs>
 
+      <!-- Filters -->
       <view class="tabPane-tips mc-filter-container voucher-report-tab">
         <view class="am-flexbox am-flexbox-align-middle" style="flex-wrap: nowrap; overflow: hidden;">
           <span class="tabPane-span filter-tabPane-btn" @tap="allCz">
@@ -33,8 +36,9 @@
         </view>
       </view>
 
+      <!-- List -->
       <view>
-        <scroll-view class="card-list" scroll-y v-if="rechargeList.length > 0">
+        <scroll-view class="card-list" scroll-y v-if="filteredRechargeList.length > 0">
           <view v-for="(item, index) in filteredRechargeList" :key="index" class="recharge-card">
             <view class="card-header">
               <view class="bank-name">
@@ -51,22 +55,17 @@
             <view class="card-body">
               <view class="details">
                 <view class="detail-item">
-                  <text class="label" v-if="item.type == 0">{{ $t('voucher.text34') }}</text>
                   <text class="label" v-if="item.type == 1 || item.type == 3 || item.type == 4">{{ $t('voucher.text53') }}</text>
-                  <text class="label" v-if="item.type == 2">{{ $t('voucher.text54') }}</text>
                   <text class="value" style="color: red;">{{ item.money }}</text>
                 </view>
-
                 <view class="detail-item">
                   <text class="label">{{$t('voucher.text35')}}</text>
-                  <text class="value">{{ item.status == 1 ? (item.type == 0 ? item.money : item.moneys || '-') : '-' }}</text>
+                  <text class="value">{{ item.status == 1 ? item.moneys || '-' : '-' }}</text>
                 </view>
-
                 <view class="detail-item" v-if="item.jl_money">
                   <text class="label" style="color: green;">{{$t('voucher.text55')}}</text>
                   <text class="value" style="color: green;">{{ item.status == 1 ? item.jl_money : '-' }}</text>
                 </view>
-
                 <view class="detail-item">
                   <text class="label">{{$t('voucher.text36')}}</text>
                   <text class="value" style="color: #0a98f8;">{{ item.status_txt }}</text>
@@ -76,37 +75,39 @@
           </view>
         </scroll-view>
 
+        <!-- Empty State -->
         <view v-else style="display: flex; align-items: center; justify-content: center; height:calc(100vh - 172px);">
-          <u-empty></u-empty>
+          <u-empty />
         </view>
-
         <view style="height: 10px;"></view>
       </view>
     </view>
 
-    <u-picker :show="czShow" :columns="[bankTypes.map(item => item.label)]" @confirm="czConfirm" @cancel="czClose"></u-picker>
-    <u-picker :show="typeShow" :columns="[statusTypes.map(item => item.label)]" @confirm="typeConfirm" @cancel="typeClose"></u-picker>
-    <u-calendar :show="timeShow" :title="$t('tzjl.text10')" mode="range" @confirm="confirm" @close="close" :minDate="minDate" :maxDate="maxDate"></u-calendar>
+    <!-- Pickers -->
+    <u-picker :show="czShow" :columns="[bankTypes.map(item => item.label)]" @confirm="czConfirm" @cancel="czClose" />
+    <u-picker :show="typeShow" :columns="[statusTypes.map(item => item.label)]" @confirm="typeConfirm" @cancel="typeClose" />
+    <u-calendar :show="timeShow" :title="$t('tzjl.text10')" mode="range" :minDate="minDate" :maxDate="maxDate" @confirm="confirm" @close="close" />
 
-    <global-notify></global-notify>
+    <global-notify />
   </view>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { getOrderLogListInfo } from '@/api/jogos.js';
+import { mapGetters } from 'vuex'
+import { getOrderLogListInfo } from '@/api/jogos.js'
 
 export default {
   name: 'voucher',
   computed: {
     ...mapGetters(['userInfo']),
+    // Only withdrawals: type 1,3,4
     filteredRechargeList() {
       return this.rechargeList.filter(item => {
-        const isDeposit = item.type === 0 || item.type === 2;
-        const matchBank = this.selectedBankType.value === 0 || item.bankName === this.selectedBankType.value;
-        const matchStatus = this.selectedStatus.value === 0 || item.status === this.selectedStatus.value;
-        return isDeposit && matchBank && matchStatus;
-      });
+        const isWithdraw = [1,3,4].includes(item.type)
+        const matchBank = this.selectedBankType.value === 0 || item.bankName === this.selectedBankType.value
+        const matchStatus = this.selectedStatus.value === 0 || item.status === this.selectedStatus.value
+        return isWithdraw && matchBank && matchStatus
+      })
     }
   },
   data() {
@@ -122,25 +123,26 @@ export default {
       selectedStatus: { label: this.$t('tzsCustomize.title37'), value: 0 },
       bankTypes: [],
       statusTypes: [],
-      list1: [],
+      list1: [
+        { name: this.$t('voucher.text38') },
+        { name: this.$t('voucher.text39') },
+        { name: this.$t('voucher.text40') }
+      ],
       rechargeList: [],
-      total: 0,
       startTime: '',
       endTime: '',
       timeRange: '',
-      activeIndex: 0
-    };
-  },
-  onLoad() {
-    this.initOptions();
-    this.orderLogInfo();
+      activeIndex: 0,
+      total: 0
+    }
   },
   mounted() {
-    const today = new Date();
-    this.maxDate = today.toISOString().split('T')[0];
-    const twoMonthsAgo = new Date();
-    twoMonthsAgo.setMonth(today.getMonth() - 2);
-    this.minDate = twoMonthsAgo.toISOString().split('T')[0];
+    const today = new Date()
+    this.maxDate = today.toISOString().split('T')[0]
+    const twoMonthsAgo = new Date()
+    twoMonthsAgo.setMonth(today.getMonth() - 2)
+    this.minDate = twoMonthsAgo.toISOString().split('T')[0]
+    this.initOptions()
   },
   methods: {
     initOptions() {
@@ -149,7 +151,7 @@ export default {
         { label: this.$t('tzsCustomize.title44'), value: 'KBZPAY' },
         { label: this.$t('voucher.text48'), value: 'Card' },
         { label: this.$t('voucher.text50'), value: 'USDT' }
-      ];
+      ]
       this.statusTypes = [
         { label: this.$t('tzsCustomize.title37'), value: 0 },
         { label: this.$t('tzsCustomize.title38'), value: 1 },
@@ -158,40 +160,36 @@ export default {
         { label: this.$t('tzsCustomize.title41'), value: 4 },
         { label: this.$t('tzsCustomize.title42'), value: 5 },
         { label: this.$t('tzsCustomize.title43'), value: 6 }
-      ];
-      this.list1 = [
-        { name: this.$t('voucher.text38') },
-        { name: this.$t('voucher.text39') },
-        { name: this.$t('voucher.text40') }
-      ];
+      ]
     },
-    goToWithdraw() {
-      uni.navigateTo({ url: '/pages/voucher-center/withdraw' });
+    goToDepost() {
+      uni.navigateTo({ url: '/pages/voucher-center/deposit' })
     },
     tabsClick(e) {
-      this.activeIndex = e.index;
-      this.setDateRangeByTab();
-      this.orderLogInfo();
+      this.activeIndex = e.index
+      this.setDateRangeByTab()
+      this.orderLogInfo()
     },
     setDateRangeByTab() {
-      const today = new Date();
-      const formatDate = d => d.toISOString().split('T')[0];
+      const today = new Date()
+      const fd = d => d.toISOString().split('T')[0]
       if (this.activeIndex === 0) {
-        this.startTime = this.endTime = formatDate(today);
+        this.startTime = this.endTime = fd(today)
       } else if (this.activeIndex === 1) {
-        const yesterday = new Date(today);
-        yesterday.setDate(today.getDate() - 1);
-        this.startTime = this.endTime = formatDate(yesterday);
-      } else if (this.activeIndex === 2) {
-        const weekAgo = new Date(today);
-        weekAgo.setDate(today.getDate() - 6);
-        this.startTime = formatDate(weekAgo);
-        this.endTime = formatDate(today);
+        const y = new Date(today)
+        y.setDate(today.getDate() - 1)
+        this.startTime = this.endTime = fd(y)
+      } else {
+        const w = new Date(today)
+        w.setDate(today.getDate() - 6)
+        this.startTime = fd(w)
+        this.endTime = fd(today)
       }
-      this.timeRange = `${this.startTime} ~ ${this.endTime}`;
+      this.timeRange = `${this.startTime} ~ ${this.endTime}`
     },
+    async orderLogList() { /* your old method, ignore */ },
     async orderLogInfo() {
-      const requestPayload = {
+      const payload = {
         page: this.page,
         limit: this.limit,
         status: this.selectedStatus.value,
@@ -200,57 +198,45 @@ export default {
         activeIndex: this.activeIndex,
         type: this.selectedBankType.value,
         lang: this.$store.state.user.language
-      };
-      try {
-        const { data, code } = await getOrderLogListInfo(requestPayload);
-        if (code === 200) {
-          this.rechargeList = data.info?.data || [];
-          this.total = data.count || 0;
-        }
-      } catch (error) {
-        console.error(error);
+      }
+      console.groupCollapsed('🔍 Request', payload); console.groupEnd()
+      const res = await getOrderLogListInfo(payload)
+      if (res.code === 200) {
+        this.rechargeList = res.data.info.data || []
+        this.total = res.data.count || 0
       }
     },
-    allCz() {
-      this.czShow = true;
-    },
+    allCz() { this.czShow = true },
     czConfirm(e) {
-      this.selectedBankType = this.bankTypes[e.indexs[0]];
-      this.orderLogInfo();
-      this.czShow = false;
+      this.selectedBankType = this.bankTypes[e.indexs[0]]
+      this.orderLogInfo()
+      this.czShow = false
     },
-    czClose() {
-      this.czShow = false;
-    },
-    allType() {
-      this.typeShow = true;
-    },
+    czClose() { this.czShow = false },
+    allType() { this.typeShow = true },
     typeConfirm(e) {
-      this.selectedStatus = this.statusTypes[e.indexs[0]];
-      this.orderLogInfo();
-      this.typeShow = false;
+      this.selectedStatus = this.statusTypes[e.indexs[0]]
+      this.orderLogInfo()
+      this.typeShow = false
     },
-    typeClose() {
-      this.typeShow = false;
-    },
-    allTime() {
-      this.timeShow = true;
-    },
+    typeClose() { this.typeShow = false },
+    allTime() { this.timeShow = true },
     confirm(e) {
-      this.timeRange = `${e[0]} ~ ${e[e.length - 1]}`;
-      this.startTime = e[0];
-      this.endTime = e[e.length - 1];
-      this.orderLogInfo();
-      this.timeShow = false;
+      this.timeRange = `${e[0]} ~ ${e[e.length - 1]}`
+      this.startTime = e[0]
+      this.endTime = e[e.length - 1]
+      this.orderLogInfo()
+      this.timeShow = false
     },
-    close() {
-      this.timeShow = false;
-    },
+    close() { this.timeShow = false },
     leftClick() {
-      this.$tab.navigateTo('/pages/userinfo/index');
+      this.$tab.navigateTo('/pages/userinfo/index')
     }
+  },
+  onLoad() {
+    this.orderLogInfo()
   }
-};
+}
 </script>
 
 

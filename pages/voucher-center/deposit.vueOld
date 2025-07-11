@@ -1,5 +1,6 @@
 <template>
   <view class="voucher_center">
+    <!-- Navbar -->
     <view class="navHeader" style="margin-bottom:100rpx;">
       <u-navbar leftText="返回" bgColor="black" :height="50" :safeAreaInsetTop="false" @leftClick="leftClick">
         <view class="u-nav-slot" slot="left">
@@ -16,9 +17,11 @@
       </u-navbar>
     </view>
 
+    <!-- Tabs -->
     <view class="content" style="margin-top: 120rpx;">
       <u-tabs :list="list1" :scrollable="false" :lineWidth="120" @click="tabsClick"></u-tabs>
 
+      <!-- Filters -->
       <view class="tabPane-tips mc-filter-container voucher-report-tab">
         <view class="am-flexbox am-flexbox-align-middle" style="flex-wrap: nowrap; overflow: hidden;">
           <span class="tabPane-span filter-tabPane-btn" @tap="allCz">
@@ -33,8 +36,9 @@
         </view>
       </view>
 
+      <!-- List -->
       <view>
-        <scroll-view class="card-list" scroll-y v-if="rechargeList.length > 0">
+        <scroll-view class="card-list" scroll-y v-if="filteredRechargeList.length > 0">
           <view v-for="(item, index) in filteredRechargeList" :key="index" class="recharge-card">
             <view class="card-header">
               <view class="bank-name">
@@ -76,6 +80,7 @@
           </view>
         </scroll-view>
 
+        <!-- Empty State -->
         <view v-else style="display: flex; align-items: center; justify-content: center; height:calc(100vh - 172px);">
           <u-empty></u-empty>
         </view>
@@ -84,6 +89,7 @@
       </view>
     </view>
 
+    <!-- Pickers -->
     <u-picker :show="czShow" :columns="[bankTypes.map(item => item.label)]" @confirm="czConfirm" @cancel="czClose"></u-picker>
     <u-picker :show="typeShow" :columns="[statusTypes.map(item => item.label)]" @confirm="typeConfirm" @cancel="typeClose"></u-picker>
     <u-calendar :show="timeShow" :title="$t('tzjl.text10')" mode="range" @confirm="confirm" @close="close" :minDate="minDate" :maxDate="maxDate"></u-calendar>
@@ -91,7 +97,6 @@
     <global-notify></global-notify>
   </view>
 </template>
-
 <script>
 import { mapGetters } from 'vuex';
 import { getOrderLogListInfo } from '@/api/jogos.js';
@@ -100,6 +105,7 @@ export default {
   name: 'voucher',
   computed: {
     ...mapGetters(['userInfo']),
+    // ✅ Filter only deposit (type = 0 or 2)
     filteredRechargeList() {
       return this.rechargeList.filter(item => {
         const isDeposit = item.type === 0 || item.type === 2;
@@ -201,14 +207,26 @@ export default {
         type: this.selectedBankType.value,
         lang: this.$store.state.user.language
       };
+
+      console.groupCollapsed('%c🔍 Order Log API Request', 'color: #2196f3; font-weight: bold;');
+      console.log('Request Payload:', requestPayload);
+      console.groupEnd();
+
       try {
         const { data, code } = await getOrderLogListInfo(requestPayload);
+        console.groupCollapsed('%c📦 API Response', 'color: #4caf50; font-weight: bold;');
+        console.log('Response Code:', code);
+        console.log('Response Data:', data);
+        console.groupEnd();
+
         if (code === 200) {
           this.rechargeList = data.info?.data || [];
           this.total = data.count || 0;
+        } else {
+          console.warn('Unexpected response code:', code);
         }
       } catch (error) {
-        console.error(error);
+        console.error('%c❌ API Error:', 'color: red; font-weight: bold;', error);
       }
     },
     allCz() {
